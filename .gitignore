@@ -1,0 +1,12 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temp / verification screenshots
+_*.png
+*.tmp
+*.log
+
+# Claude Code local state
+.claude/

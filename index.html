@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ROS Radar — AI-Powered Expense Tracking for Irish Tax Compliance</title>
+<meta name="description" content="ROS Radar uses AI to scan your receipts, categorise expenses for Irish Revenue, track VAT3, and keep you audit-ready for your Form 11 Self-Assessment. Built for Irish self-employed, sole traders, and small businesses." />
+<meta name="theme-color" content="#121212" />
+<meta property="og:title" content="ROS Radar — AI Expense Tracking for Irish Tax Compliance" />
+<meta property="og:description" content="Snap a receipt. AI extracts the data, categorises it for Form 11, and keeps you audit-ready. Built for Irish self-assessment." />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310B981' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#121212;
+  --bg-deep:#0c0c0c;
+  --surface:#1E1E1E;
+  --surface-2:#242424;
+  --surface-3:#2c2c2c;
+  --border:rgba(255,255,255,0.08);
+  --border-strong:rgba(255,255,255,0.14);
+  --emerald:#10B981;
+  --emerald-bright:#34D399;
+  --emerald-dim:rgba(16,185,129,0.12);
+  --amber:#F59E0B;
+  --red:#EF4444;
+  --indigo:#6366F1;
+  --text:#FFFFFF;
+  --text-soft:#C7C9CC;
+  --text-muted:#8A8F98;
+  --faint:#6b6f76;
+  --display:"Bricolage Grotesque",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --font:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
+  --radius:16px;
+  --radius-lg:24px;
+  --maxw:1180px;
+  --shadow:0 24px 60px -20px rgba(0,0,0,0.6);
+  --glow:0 0 0 1px rgba(16,185,129,0.25),0 20px 60px -18px rgba(16,185,129,0.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--font);
+  background-color:var(--bg);
+  background-image:
+    linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
+  background-size:56px 56px;
+  background-position:center top;
+  background-attachment:fixed;
+  color:var(--text);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+::selection{background:rgba(16,185,129,0.3);color:#fff}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;width:100%}
+
+.eyebrow{
+  font-family:var(--mono);
+  font-size:.74rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--emerald-bright);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.eyebrow::before{content:"";width:18px;height:1px;background:var(--emerald);opacity:.7}
+
+h1,h2,h3{font-family:var(--display);line-height:1.06;letter-spacing:-.02em;font-weight:700}
+.section{padding:110px 0;position:relative}
+.section-head{max-width:680px;margin-bottom:56px}
+.section-head h2{font-size:clamp(2rem,4.4vw,3.1rem);margin:18px 0 16px}
+.section-head p{color:var(--text-muted);font-size:1.075rem;max-width:600px}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  font-size:.96rem;font-weight:600;font-family:var(--font);
+  padding:14px 24px;border-radius:12px;border:1px solid transparent;
+  cursor:pointer;transition:transform .18s ease,box-shadow .25s ease,background .2s ease,border-color .2s ease;
+  white-space:nowrap;
+}
+.btn-primary{background:var(--emerald);color:#04130d;box-shadow:0 10px 30px -8px rgba(16,185,129,.5)}
+.btn-primary:hover{background:var(--emerald-bright);transform:translateY(-2px);box-shadow:0 16px 40px -10px rgba(16,185,129,.6)}
+.btn-ghost{background:var(--surface-2);color:#fff;border-color:var(--border-strong)}
+.btn-ghost:hover{background:var(--surface-3);transform:translateY(-2px);border-color:rgba(255,255,255,.25)}
+.btn-store{
+  background:#fff;color:#0a0a0a;padding:11px 20px;border-radius:13px;gap:12px;align-items:center;
+}
+.btn-store:hover{transform:translateY(-2px);box-shadow:0 16px 36px -12px rgba(255,255,255,.25)}
+.btn-store .sub{display:flex;flex-direction:column;line-height:1.05;text-align:left}
+.btn-store .sub small{font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;opacity:.6;font-weight:600}
+.btn-store .sub b{font-size:.98rem;font-weight:700}
+.btn-store svg{width:24px;height:24px;flex:none}
+
+/* ---------- Nav ---------- */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(18,18,18,0.72);
+  backdrop-filter:saturate(160%) blur(14px);
+  -webkit-backdrop-filter:saturate(160%) blur(14px);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s ease,background .3s ease;
+}
+.nav.scrolled{border-bottom-color:var(--border);background:rgba(14,14,14,0.85)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:1.12rem;letter-spacing:-.01em}
+.brand .logo{
+  width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+  background:linear-gradient(150deg,rgba(16,185,129,.22),rgba(16,185,129,.06));
+  border:1px solid rgba(16,185,129,.35);
+}
+.brand .logo svg{width:19px;height:19px;stroke:var(--emerald-bright)}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-links a{
+  font-size:.92rem;color:var(--text-soft);padding:9px 14px;border-radius:9px;
+  transition:color .2s ease,background .2s ease;font-weight:500;
+}
+.nav-links a:hover{color:#fff;background:var(--surface-2)}
+.nav-cta{margin-left:10px}
+.nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:8px}
+.nav-toggle span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:.25s;margin:5px 0}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ---------- Hero (sci-fi radar HUD) ---------- */
+.hero{position:relative;padding:150px 0 84px;overflow:hidden;background:radial-gradient(120% 90% at 65% 18%,#10231b 0%,#0b0f0d 45%,#070807 100%)}
+.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:40px;align-items:center;position:relative;z-index:2}
+/* layered atmosphere */
+.hero-ambient{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(440px circle at var(--hx,68%) var(--hy,40%),rgba(16,185,129,.18),transparent 62%);transition:background .2s ease}
+.hero-mesh{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(16,185,129,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(16,185,129,.055) 1px,transparent 1px);
+  background-size:56px 56px;
+  -webkit-mask:radial-gradient(125% 85% at 62% 32%,#000 28%,transparent 76%);
+  mask:radial-gradient(125% 85% at 62% 32%,#000 28%,transparent 76%);}
+.hero-crt{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.35;
+  background:repeating-linear-gradient(0deg,transparent 0 2px,rgba(0,0,0,.5) 2px 3px)}
+.hero .wrap{position:relative;z-index:2}
+
+/* corner reticles + HUD frame */
+.reticle{position:absolute;z-index:3;font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;color:var(--text-muted);display:flex;align-items:center;gap:7px;pointer-events:none;text-transform:uppercase}
+.reticle::before{content:"+";color:var(--emerald);font-size:.95rem;font-weight:700;text-shadow:0 0 8px rgba(16,185,129,.7)}
+.reticle.tl{top:92px;left:26px}
+.reticle.tr{top:92px;right:26px;flex-direction:row-reverse}
+.reticle.bl{bottom:26px;left:26px}
+.hero-vtext{position:absolute;right:14px;top:50%;transform:translateY(-50%);z-index:3;writing-mode:vertical-rl;font-family:var(--mono);font-size:.62rem;letter-spacing:.34em;text-transform:uppercase;color:var(--text-muted);pointer-events:none}
+.hero-vtext b{color:var(--emerald-bright)}
+
+/* copy */
+.hero-eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:var(--emerald-bright);display:inline-flex;align-items:center;gap:10px}
+.hero-eyebrow::before{content:"";width:30px;height:1px;background:var(--emerald);box-shadow:0 0 8px var(--emerald)}
+.hero-title{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(2.9rem,8.4vw,6.6rem);line-height:.85;letter-spacing:-.03em;margin:20px 0 0}
+.hero-title .l{display:block;
+  background:linear-gradient(180deg,#f3fff9 0%,#69ead2 44%,#10B981 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:titleglow 4.5s ease-in-out infinite}
+.hero-title .l.ghost{background:none;color:transparent;-webkit-text-fill-color:transparent;
+  -webkit-text-stroke:1.4px rgba(110,238,214,.66);text-stroke:1.4px rgba(110,238,214,.66);animation:none;
+  filter:drop-shadow(0 0 20px rgba(16,185,129,.3))}
+@keyframes titleglow{0%,100%{filter:drop-shadow(0 2px 22px rgba(16,185,129,.30))}50%{filter:drop-shadow(0 2px 40px rgba(16,185,129,.6))}}
+.hero-sub{color:var(--text-soft);font-size:1.12rem;margin:24px 0 0;max-width:480px}
+.hero-actions{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+.hero-status{display:flex;gap:20px;flex-wrap:wrap;margin-top:26px;font-family:var(--mono);font-size:.71rem;letter-spacing:.06em;color:var(--text-muted);text-transform:uppercase}
+.hero-status span{display:inline-flex;align-items:center;gap:8px}
+.hero-status b{color:var(--emerald-bright);font-weight:600}
+.hero-status .live{width:7px;height:7px;border-radius:50%;background:var(--emerald);box-shadow:0 0 9px var(--emerald);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.8)}}
+
+/* radar scope */
+.hero-visual{position:relative;display:grid;place-items:center;min-height:520px}
+.scope{position:relative;width:min(480px,88vw);aspect-ratio:1;display:grid;place-items:center;transition:transform .3s ease}
+.scope-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.scope-sweep{position:absolute;inset:4%;border-radius:50%;z-index:2;
+  background:conic-gradient(from 0deg,rgba(16,185,129,0) 0deg,rgba(16,185,129,0) 268deg,rgba(16,185,129,.05) 300deg,rgba(16,185,129,.32) 348deg,rgba(52,211,153,.6) 360deg);
+  -webkit-mask:radial-gradient(circle,transparent 0,#000 2.2%);mask:radial-gradient(circle,transparent 0,#000 2.2%);
+  animation:sweep 4.5s linear infinite}
+@keyframes sweep{to{transform:rotate(360deg)}}
+.scope-core{position:absolute;width:30%;aspect-ratio:1;border-radius:50%;z-index:3;
+  background:radial-gradient(circle,#e9fff7 0%,#5eead0 30%,#10B981 52%,rgba(16,185,129,.35) 68%,transparent 78%);
+  box-shadow:0 0 70px 12px rgba(16,185,129,.5);animation:corepulse 3.2s ease-in-out infinite}
+@keyframes corepulse{0%,100%{transform:scale(.9);opacity:.85}50%{transform:scale(1.08);opacity:1}}
+.scope-core::after,.scope-core::before{content:"";position:absolute;inset:-30%;border-radius:50%;border:1px solid rgba(52,211,153,.4);animation:ringout 3.2s ease-out infinite}
+.scope-core::before{animation-delay:1.6s}
+@keyframes ringout{0%{transform:scale(.55);opacity:.8}100%{transform:scale(1.7);opacity:0}}
+.scope .blip{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--emerald-bright);box-shadow:0 0 14px 3px rgba(52,211,153,.8);z-index:4;opacity:0;animation:blip 4.5s linear infinite}
+.scope .blip.b1{top:30%;left:64%;animation-delay:1s}
+.scope .blip.b2{top:62%;left:38%;animation-delay:2.4s}
+.scope .blip.b3{top:46%;left:72%;animation-delay:3.5s}
+@keyframes blip{0%{opacity:0;transform:scale(.4)}5%{opacity:1;transform:scale(1)}20%{opacity:0;transform:scale(1.8)}100%{opacity:0}}
+
+/* HUD readout chips around scope */
+.float-chip{position:absolute;z-index:5;background:rgba(8,14,11,.85);border:1px solid rgba(16,185,129,.3);
+  border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.7rem;
+  letter-spacing:.04em;text-transform:uppercase;color:var(--text-soft);backdrop-filter:blur(8px);
+  box-shadow:0 14px 30px -12px rgba(0,0,0,.8),0 0 0 1px rgba(16,185,129,.05);animation:floaty 5s ease-in-out infinite}
+.float-chip::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--emerald);box-shadow:0 0 8px var(--emerald);flex:none}
+.float-chip b{color:var(--emerald-bright);font-weight:600}
+.fc-1{top:8%;left:-4%;animation-delay:0s}
+.fc-2{top:48%;right:-10%;animation-delay:.9s}
+.fc-3{bottom:8%;left:2%;animation-delay:1.7s}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* logos strip */
+.strip{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:26px 0;background:rgba(255,255,255,.012)}
+.strip-inner{display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap;color:var(--text-muted);font-size:.84rem}
+.strip-inner b{color:var(--text-soft)}
+.strip-inner .pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);letter-spacing:.04em}
+.strip-inner .pill svg{width:15px;height:15px;stroke:var(--emerald);flex:none}
+
+/* ---------- Bento features ---------- */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+.card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:26px;position:relative;overflow:hidden;
+  transition:transform .25s ease,border-color .25s ease,background .25s ease;
+}
+.card:hover{transform:translateY(-4px);border-color:var(--border-strong);background:#212121}
+.card .ic{
+  width:42px;height:42px;border-radius:11px;display:grid;place-items:center;margin-bottom:16px;
+  background:var(--emerald-dim);border:1px solid rgba(16,185,129,.28);
+}
+.card .ic svg{width:21px;height:21px;stroke:var(--emerald-bright)}
+.card h3{font-size:1.18rem;margin-bottom:9px;letter-spacing:-.015em}
+.card p{color:var(--text-muted);font-size:.94rem}
+.card .tag{display:inline-block;font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--emerald-bright);margin-bottom:14px}
+.b3{grid-column:span 3}
+.b2{grid-column:span 2}
+.card.showcase{background:linear-gradient(165deg,#202020,#161616)}
+
+/* showcase visuals */
+.viz{margin-top:18px;border-radius:14px;border:1px solid var(--border);background:var(--bg-deep);padding:16px}
+.metric-tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mt{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:11px 12px}
+.mt small{display:block;color:var(--text-muted);font-size:.6rem;text-transform:uppercase;letter-spacing:.1em}
+.mt b{font-family:var(--mono);font-size:1.05rem;display:block;margin-top:3px}
+.mt.green b{color:var(--emerald-bright)}
+.mt.indigo b{color:#8b8df5}
+.mt.amber b{color:var(--amber)}
+
+.vat-row{display:flex;align-items:center;gap:10px;margin:9px 0;font-size:.78rem}
+.vat-row .lbl{width:62px;color:var(--text-soft);font-family:var(--mono);font-size:.72rem}
+.vat-row .track{flex:1;height:8px;background:var(--surface-2);border-radius:5px;overflow:hidden}
+.vat-row .track i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--emerald),var(--emerald-bright))}
+.vat-row .amt{font-family:var(--mono);color:var(--text-muted);width:54px;text-align:right;font-size:.72rem}
+
+.shield-viz{display:flex;align-items:center;gap:18px}
+.ring-prog{position:relative;width:104px;height:104px;flex:none}
+.ring-prog svg{transform:rotate(-90deg)}
+.ring-prog .val{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:1.4rem;color:var(--emerald-bright)}
+.shield-list{display:flex;flex-direction:column;gap:9px;font-size:.82rem}
+.shield-list .li{display:flex;align-items:center;gap:9px;color:var(--text-soft)}
+.shield-list .li .d{width:7px;height:7px;border-radius:50%;flex:none}
+.d-green{background:var(--emerald)}.d-amber{background:var(--amber)}.d-red{background:var(--red)}
+
+.cat-chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:.76rem;padding:7px 12px;border-radius:999px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text-soft)}
+.chip.ok{border-color:rgba(16,185,129,.4);color:var(--emerald-bright);background:rgba(16,185,129,.08)}
+.chip.no{border-color:rgba(239,68,68,.4);color:#fca5a5;background:rgba(239,68,68,.08)}
+
+/* ---------- Screenshot showcase ---------- */
+.shots{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;align-items:start}
+.shot{text-align:center}
+.shot-frame{
+  position:relative;border-radius:34px;background:linear-gradient(180deg,#202020,#161616);
+  border:1px solid var(--border-strong);padding:9px;margin:0 auto 16px;max-width:230px;
+  box-shadow:0 30px 60px -26px rgba(0,0,0,.7);transition:transform .3s ease,box-shadow .3s ease;
+}
+.shot:hover .shot-frame{transform:translateY(-6px);box-shadow:0 40px 70px -26px rgba(16,185,129,.28)}
+.shot-frame::before{content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);width:78px;height:18px;background:#000;border-radius:0 0 12px 12px;z-index:3}
+.shot-screen{border-radius:26px;overflow:hidden;background:var(--bg-deep);aspect-ratio:9/19.5;position:relative}
+.shot-screen img{width:100%;height:100%;object-fit:cover}
+.shot-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--faint);padding:20px;text-align:center}
+.shot-ph svg{width:30px;height:30px;stroke:var(--emerald);opacity:.6}
+.shot-ph span{font-size:.74rem;font-family:var(--mono)}
+.shot h3{font-size:1.02rem;margin-bottom:5px}
+.shot p{color:var(--text-muted);font-size:.85rem;max-width:230px;margin:0 auto}
+@media(max-width:960px){.shots{grid-template-columns:repeat(2,1fr);gap:30px 22px}}
+@media(max-width:520px){.shots{grid-template-columns:1fr;gap:40px}}
+
+/* ---------- How it works ---------- */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
+.steps::before{content:"";position:absolute;top:42px;left:14%;right:14%;height:1px;background:linear-gradient(90deg,transparent,rgba(16,185,129,.35),transparent);z-index:0}
+.step{position:relative;z-index:1;text-align:center;padding:0 10px}
+.step .num{
+  width:64px;height:64px;border-radius:50%;margin:0 auto 22px;display:grid;place-items:center;
+  background:var(--surface);border:1px solid rgba(16,185,129,.35);font-family:var(--mono);font-size:1.1rem;
+  font-weight:700;color:var(--emerald-bright);box-shadow:0 0 0 6px rgba(16,185,129,.06),0 10px 30px -12px rgba(16,185,129,.4);
+}
+.step h3{font-size:1.22rem;margin-bottom:9px}
+.step p{color:var(--text-muted);font-size:.94rem;max-width:280px;margin:0 auto}
+
+/* ---------- Pricing ---------- */
+.pricing-wrap{display:grid;place-items:center}
+.price-card{
+  width:100%;max-width:440px;background:linear-gradient(170deg,#1f1f1f,#161616);
+  border:1px solid rgba(16,185,129,.3);border-radius:var(--radius-lg);padding:38px 34px;position:relative;
+  box-shadow:var(--glow);
+}
+.price-card .ribbon{position:absolute;top:18px;right:18px;font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--emerald-bright);border:1px solid rgba(16,185,129,.4);padding:5px 10px;border-radius:999px;background:rgba(16,185,129,.08)}
+.price-card h3{font-size:1.5rem}
+.price-card .plan-sub{color:var(--text-muted);font-size:.92rem;margin-top:4px}
+.price-amt{display:flex;align-items:baseline;gap:6px;margin:22px 0 6px}
+.price-amt .num{font-size:3.2rem;font-weight:800;letter-spacing:-.03em}
+.price-amt .per{color:var(--text-muted);font-size:1rem}
+.price-trial{color:var(--emerald-bright);font-size:.9rem;font-weight:600;margin-bottom:24px}
+.feat-list{list-style:none;display:flex;flex-direction:column;gap:13px;margin:24px 0 28px}
+.feat-list li{display:flex;gap:11px;align-items:flex-start;font-size:.95rem;color:var(--text-soft)}
+.feat-list svg{width:20px;height:20px;flex:none;stroke:var(--emerald-bright);margin-top:1px}
+.price-card .btn{width:100%}
+.price-note{text-align:center;color:var(--faint);font-size:.8rem;margin-top:14px}
+
+/* ---------- Trust ---------- */
+.trust-band{background:linear-gradient(180deg,rgba(16,185,129,.04),transparent)}
+.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:34px}
+.badge{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;
+  display:flex;gap:14px;align-items:center;
+}
+.badge .bi{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:var(--emerald-dim);border:1px solid rgba(16,185,129,.28);flex:none}
+.badge .bi svg{width:23px;height:23px;stroke:var(--emerald-bright)}
+.badge b{display:block;font-size:.98rem}
+.badge small{color:var(--text-muted);font-size:.82rem}
+.processors{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;color:var(--text-muted);font-size:.88rem;text-align:center}
+.proc{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 18px;flex:1;min-width:200px}
+.proc b{color:var(--text);display:block;font-size:.92rem;margin-bottom:3px}
+.proc span{font-size:.8rem}
+
+/* ---------- CTA banner ---------- */
+.cta-banner{
+  background:linear-gradient(150deg,rgba(16,185,129,.14),rgba(99,102,241,.08));
+  border:1px solid rgba(16,185,129,.25);border-radius:var(--radius-lg);
+  padding:52px;text-align:center;position:relative;overflow:hidden;
+}
+.cta-banner h2{font-size:clamp(1.7rem,3.6vw,2.5rem);margin-bottom:14px}
+.cta-banner p{color:var(--text-soft);max-width:520px;margin:0 auto 28px}
+.cta-banner .hero-actions{justify-content:center}
+
+/* ---------- Footer ---------- */
+.footer{border-top:1px solid var(--border);padding:64px 0 36px;background:var(--bg-deep)}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:44px}
+.foot-brand p{color:var(--text-muted);font-size:.9rem;max-width:320px;margin-top:14px}
+.foot-col h4{font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--faint);margin-bottom:16px;font-family:var(--mono);font-weight:600}
+.foot-col a,.foot-col span{display:block;color:var(--text-muted);font-size:.92rem;margin-bottom:11px;transition:color .2s}
+.foot-col a:hover{color:var(--emerald-bright)}
+.foot-bottom{border-top:1px solid var(--border);padding-top:26px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;color:var(--faint);font-size:.84rem}
+.disclaimer{color:var(--faint);font-size:.8rem;margin-top:14px;max-width:560px;line-height:1.6}
+
+/* ---------- Scroll progress ---------- */
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;transform:scaleX(0);transform-origin:0 50%;z-index:200;background:linear-gradient(90deg,var(--emerald),var(--emerald-bright),var(--indigo));box-shadow:0 0 12px rgba(16,185,129,.5)}
+
+/* ---------- Hero load reveal ---------- */
+@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.hero-copy>*{animation:rise .75s both cubic-bezier(.2,.8,.2,1)}
+.hero-copy>*:nth-child(1){animation-delay:.05s}
+.hero-copy>*:nth-child(2){animation-delay:.14s}
+.hero-copy>*:nth-child(3){animation-delay:.23s}
+.hero-copy>*:nth-child(4){animation-delay:.32s}
+.hero-copy>*:nth-child(5){animation-delay:.41s}
+.hero-visual{animation:rise .9s .3s both cubic-bezier(.2,.8,.2,1)}
+
+/* ---------- Radar blips ---------- */
+.radar .blip{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--emerald-bright);box-shadow:0 0 14px 2px rgba(52,211,153,.7);opacity:0;animation:blip 5s linear infinite}
+@keyframes blip{0%{opacity:0;transform:scale(.4)}4%{opacity:1;transform:scale(1)}16%{opacity:0;transform:scale(1.6)}100%{opacity:0}}
+.blip.b1{top:24%;left:62%;animation-delay:1.1s}
+.blip.b2{top:64%;left:34%;animation-delay:2.6s}
+.blip.b3{top:44%;left:74%;animation-delay:3.9s}
+
+/* phone tilt */
+.hero-visual{perspective:1100px}
+.phone{transition:transform .25s ease,box-shadow .25s ease}
+
+/* ---------- Card cursor spotlight ---------- */
+.card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s ease;background:radial-gradient(300px circle at var(--mx,50%) var(--my,50%),rgba(16,185,129,.13),transparent 60%)}
+.card:hover::after{opacity:1}
+
+/* ---------- Bar fill on reveal ---------- */
+.track i,.fd-bar i{transition:width 1.3s cubic-bezier(.2,.8,.2,1)}
+.reveal:not(.in) .track i{width:0!important}
+
+/* ---------- Button shine ---------- */
+.btn-primary,.btn-store{position:relative;overflow:hidden}
+.btn-primary::after,.btn-store::after{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-18deg);transition:left .6s ease}
+.btn-primary:hover::after,.btn-store:hover::after{left:140%}
+
+/* ---------- Reveal animation ---------- */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}
+.reveal.d2{transition-delay:.16s}
+.reveal.d3{transition-delay:.24s}
+
+/* ---------- Sci-fi HUD (page-wide) ---------- */
+.hud-divider{display:flex;align-items:center;gap:16px;max-width:var(--maxw);margin:0 auto;padding:40px 24px 0}
+.hud-divider+.section{padding-top:44px}
+.hud-divider::before,.hud-divider::after{content:"+";color:var(--emerald);font-family:var(--mono);font-size:.9rem;opacity:.65;text-shadow:0 0 8px rgba(16,185,129,.6)}
+.hud-divider .seg{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(16,185,129,.32),transparent)}
+.hud-divider .lbl{font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);white-space:nowrap}
+.hud-divider .lbl b{color:var(--emerald-bright);font-weight:600}
+
+/* corner brackets */
+.hud-corners{position:absolute;inset:10px;pointer-events:none;z-index:1;
+  --c:rgba(16,185,129,.5);--s:13px;--t:1.5px;
+  background:
+    linear-gradient(var(--c),var(--c)) 0 0/var(--s) var(--t) no-repeat,
+    linear-gradient(var(--c),var(--c)) 0 0/var(--t) var(--s) no-repeat,
+    linear-gradient(var(--c),var(--c)) 100% 0/var(--s) var(--t) no-repeat,
+    linear-gradient(var(--c),var(--c)) 100% 0/var(--t) var(--s) no-repeat,
+    linear-gradient(var(--c),var(--c)) 0 100%/var(--s) var(--t) no-repeat,
+    linear-gradient(var(--c),var(--c)) 0 100%/var(--t) var(--s) no-repeat,
+    linear-gradient(var(--c),var(--c)) 100% 100%/var(--s) var(--t) no-repeat,
+    linear-gradient(var(--c),var(--c)) 100% 100%/var(--t) var(--s) no-repeat;}
+
+/* showcase scan-line accent */
+.card.showcase::before{content:"";position:absolute;top:0;left:18px;right:18px;height:1px;z-index:1;background:linear-gradient(90deg,transparent,rgba(16,185,129,.6),transparent)}
+
+/* steps traveling pulse */
+.steps::after{content:"";position:absolute;top:38px;width:9px;height:9px;border-radius:50%;background:var(--emerald-bright);box-shadow:0 0 14px 2px rgba(52,211,153,.8);z-index:1;animation:travel 4.5s linear infinite}
+@keyframes travel{0%{left:14%;opacity:0}8%{opacity:1}92%{opacity:1}100%{left:86%;opacity:0}}
+
+/* footer status */
+.foot-status{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-bottom:22px;margin-bottom:22px;border-bottom:1px solid var(--border)}
+.foot-status b{color:var(--emerald-bright)}
+.foot-status .live{width:7px;height:7px;border-radius:50%;background:var(--emerald);box-shadow:0 0 9px var(--emerald);animation:pulse 1.6s ease-in-out infinite}
+
+/* ---------- Heading FX (holographic sheen) ---------- */
+h2{
+  color:#fff;-webkit-text-fill-color:transparent;
+  background:linear-gradient(100deg,#fff 0%,#fff 38%,#7df0d8 50%,#fff 62%,#fff 100%);
+  background-size:220% 100%;-webkit-background-clip:text;background-clip:text;
+  animation:sheen 7s linear infinite;
+  filter:drop-shadow(0 1px 16px rgba(16,185,129,.20));
+}
+@keyframes sheen{0%{background-position:165% 0}100%{background-position:-65% 0}}
+h2:hover{animation:sheen 7s linear infinite,glitch .42s steps(2,end) 2}
+@keyframes glitch{
+  0%{text-shadow:1.5px 0 rgba(239,68,68,.65),-1.5px 0 rgba(99,102,241,.65)}
+  50%{text-shadow:-1.5px 0 rgba(16,185,129,.65),1.5px 0 rgba(99,102,241,.65)}
+  100%{text-shadow:none}
+}
+.card h3,.step h3,.shot h3,.price-card h3{
+  color:#fff;-webkit-text-fill-color:transparent;
+  background:linear-gradient(100deg,#fff,#fff 45%,#9ff3e0 55%,#fff 70%);
+  background-size:220% 100%;-webkit-background-clip:text;background-clip:text;
+  animation:sheen 9s linear infinite;
+}
+.card:hover h3{filter:drop-shadow(0 0 10px rgba(16,185,129,.45))}
+
+/* ---------- Section backgrounds (atmospheric) ---------- */
+.section{isolation:isolate}
+.section::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(720px 480px at 80% 4%,rgba(16,185,129,.09),transparent 66%);
+  animation:secglow 9s ease-in-out infinite}
+.section:nth-of-type(even)::before{background:radial-gradient(660px 460px at 12% 10%,rgba(99,102,241,.09),transparent 66%)}
+.section::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(0,0,0,.12) 3px 4px);
+  -webkit-mask:radial-gradient(120% 80% at 50% 40%,#000,transparent 80%);
+  mask:radial-gradient(120% 80% at 50% 40%,#000,transparent 80%)}
+@keyframes secglow{0%,100%{opacity:.6}50%{opacity:1}}
+
+/* ---------- Universal HUD corners on every box ---------- */
+.badge,.proc{position:relative}
+.card:not(.showcase)::before,
+.badge::before,
+.proc::before,
+.shot-frame::after{
+  content:"";position:absolute;inset:9px;pointer-events:none;z-index:2;
+  --c:rgba(16,185,129,.42);--s:12px;--t:1.5px;
+  background:
+    linear-gradient(var(--c),var(--c)) 0 0/var(--s) var(--t) no-repeat,
+    linear-gradient(var(--c),var(--c)) 0 0/var(--t) var(--s) no-repeat,
+    linear-gradient(var(--c),var(--c)) 100% 0/var(--s) var(--t) no-repeat,
+    linear-gradient(var(--c),var(--c)) 100% 0/var(--t) var(--s) no-repeat,
+    linear-gradient(var(--c),var(--c)) 0 100%/var(--s) var(--t) no-repeat,
+    linear-gradient(var(--c),var(--c)) 0 100%/var(--t) var(--s) no-repeat,
+    linear-gradient(var(--c),var(--c)) 100% 100%/var(--s) var(--t) no-repeat,
+    linear-gradient(var(--c),var(--c)) 100% 100%/var(--t) var(--s) no-repeat;}
+.shot-frame::after{inset:6px;--c:rgba(16,185,129,.5)}
+
+/* ---------- Responsive ---------- */
+@media(max-width:960px){
+  .hero-grid{grid-template-columns:1fr;gap:30px}
+  .hero-visual{min-height:440px;order:-1}
+  .hero{padding:130px 0 70px}
+  .hero-vtext{display:none}
+  .reticle.tr{display:none}
+  .bento{grid-template-columns:repeat(2,1fr)}
+  .b3,.b2{grid-column:span 1}
+  .b3.wide{grid-column:span 2}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .badges{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  .nav-links{
+    position:fixed;top:72px;left:0;right:0;flex-direction:column;align-items:stretch;gap:4px;
+    background:rgba(12,12,12,.97);backdrop-filter:blur(14px);padding:16px 20px 24px;
+    border-bottom:1px solid var(--border);transform:translateY(-130%);transition:transform .3s ease;
+  }
+  .nav-links.open{transform:translateY(0)}
+  .nav-links a{padding:13px 14px}
+  .nav-cta{margin:8px 0 0}
+  .nav-toggle{display:block}
+  .section{padding:80px 0}
+  .steps{grid-template-columns:1fr;gap:36px}
+  .steps::before,.steps::after{display:none}
+  .bento{grid-template-columns:1fr}
+  .b3.wide{grid-column:span 1}
+  .foot-grid{grid-template-columns:1fr}
+  .cta-banner{padding:38px 24px}
+  .reticle{display:none}
+  .float-chip{font-size:.6rem;padding:5px 9px;max-width:60%}
+  .fc-1{left:0;right:auto;top:5%}
+  .fc-2{left:0;right:auto;top:46%}
+  .fc-3{left:0;right:auto;bottom:5%}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">
+      <span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+      ROS&nbsp;Radar
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#top">Home</a>
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms &amp; Conditions</a>
+      <a href="#pricing" class="btn btn-primary nav-cta">Start Free Trial</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="hero-ambient"></div>
+  <div class="hero-mesh" aria-hidden="true"></div>
+  <div class="hero-crt" aria-hidden="true"></div>
+  <span class="reticle tl" aria-hidden="true">LAT 53.3498° N</span>
+  <span class="reticle tr" aria-hidden="true">LON 06.2603° W</span>
+  <span class="reticle bl" aria-hidden="true">SYS // ROS-RADAR</span>
+  <span class="hero-vtext" aria-hidden="true">RECEIPT INTELLIGENCE <b>// v2.0</b></span>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="hero-eyebrow">Irish Tax Compliance System</span>
+        <h1 class="hero-title" aria-label="Every receipt on radar"><span class="l">Every receipt</span><span class="l ghost">on radar</span></h1>
+        <p class="hero-sub">AI reads every receipt, sorts each expense into Form 11 categories, and tracks your VAT3 in real time — purpose-built for Irish self-assessment. Snap. Scan. Filed.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-store" aria-label="Get it on Google Play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3 13 11.7l-2.5 2.5L3.6 2.3zM5 21.7 12.5 14l2.5 2.5L5 21.7zM20.4 10.4c.9.5.9 2.7 0 3.2l-3 1.7-2.7-2.7 2.7-2.7 3 1.5zM3.1 1.9C3 2.1 3 2.4 3 2.7v18.6c0 .3 0 .6.1.8L13 12 3.1 1.9z"/></svg>
+            <span class="sub"><small>Get it on</small><b>Google Play</b></span>
+          </a>
+          <a href="#" class="btn btn-store" aria-label="Download on the App Store">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.7c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.6-1.7-3.2-1.7-1.4-.1-2.6.8-3.3.8-.7 0-1.7-.8-2.8-.8-1.4 0-2.8.8-3.5 2.1-1.5 2.6-.4 6.4 1.1 8.5.7 1 1.5 2.2 2.6 2.1 1-.04 1.4-.7 2.7-.7 1.2 0 1.6.7 2.7.6 1.1 0 1.8-1 2.5-2 .8-1.2 1.1-2.3 1.1-2.4-.02-.01-2.1-.8-2.1-3.1zM14.3 6.2c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.07 1.8-.5 2.5-1.2z"/></svg>
+            <span class="sub"><small>Download on the</small><b>App Store</b></span>
+          </a>
+        </div>
+        <div class="hero-status">
+          <span><span class="live"></span>SYSTEM <b>ONLINE</b></span>
+          <span>GPT-4o VISION <b>ACTIVE</b></span>
+          <span>REVENUE <b>COMPLIANT</b></span>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="scope" aria-hidden="true">
+          <svg class="scope-svg" viewBox="0 0 400 400" fill="none">
+            <g stroke="rgba(16,185,129,.16)" stroke-width="1" vector-effect="non-scaling-stroke">
+              <circle cx="200" cy="200" r="152"/>
+              <circle cx="200" cy="200" r="104"/>
+              <circle cx="200" cy="200" r="56"/>
+              <ellipse cx="200" cy="200" rx="56" ry="152"/>
+              <ellipse cx="200" cy="200" rx="104" ry="152"/>
+              <ellipse cx="200" cy="200" rx="152" ry="56"/>
+              <ellipse cx="200" cy="200" rx="152" ry="104"/>
+            </g>
+            <g stroke="rgba(16,185,129,.10)" stroke-width="1" vector-effect="non-scaling-stroke">
+              <line x1="200" y1="40" x2="200" y2="360"/>
+              <line x1="40" y1="200" x2="360" y2="200"/>
+              <line x1="86" y1="86" x2="314" y2="314"/>
+              <line x1="314" y1="86" x2="86" y2="314"/>
+            </g>
+            <circle cx="200" cy="200" r="190" stroke="rgba(16,185,129,.5)" stroke-width="2" stroke-dasharray="2 9" vector-effect="non-scaling-stroke"/>
+            <circle cx="200" cy="200" r="196" stroke="rgba(16,185,129,.32)" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+            <g stroke="rgba(52,211,153,.55)" stroke-width="1.5" vector-effect="non-scaling-stroke">
+              <line x1="200" y1="190" x2="200" y2="210"/>
+              <line x1="190" y1="200" x2="210" y2="200"/>
+            </g>
+          </svg>
+          <div class="scope-sweep"></div>
+          <div class="scope-core"></div>
+          <span class="blip b1"></span><span class="blip b2"></span><span class="blip b3"></span>
+        </div>
+        <div class="float-chip fc-1">Merchant&nbsp;<b>Tesco</b></div>
+        <div class="float-chip fc-2">VAT&nbsp;<b>€4.60 · 23%</b></div>
+        <div class="float-chip fc-3">Category&nbsp;<b>Office&nbsp;&amp;&nbsp;Admin</b></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ STRIP ============ -->
+<div class="strip">
+  <div class="wrap strip-inner">
+    <span>Powered by infrastructure you can trust:</span>
+    <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Supabase · AWS Dublin</span>
+    <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg> Stripe payments</span>
+    <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 5v2M12 17v2M5 12h2M17 12h2"/></svg> OpenAI GPT-4o Vision</span>
+  </div>
+</div>
+
+<!-- ============ FEATURES ============ -->
+<div class="hud-divider"><span class="seg"></span><span class="lbl">Feature Array <b>// 10 Modules Online</b></span><span class="seg"></span></div>
+<section class="section" id="features">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Everything you need for Form 11</span>
+      <h2>One app from receipt to return</h2>
+      <p>From the moment you snap a photo to the second you hand a summary to your accountant — every step of Irish self-assessment, handled.</p>
+    </div>
+
+    <div class="bento">
+      <!-- Row 1 -->
+      <article class="card showcase b3 reveal">
+        <span class="hud-corners" aria-hidden="true"></span>
+        <span class="tag">AI Extraction</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9V6a2 2 0 0 1 2-2h3M21 9V6a2 2 0 0 0-2-2h-3M3 15v3a2 2 0 0 0 2 2h3M21 15v3a2 2 0 0 1-2 2h-3"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3>AI Receipt Scanning</h3>
+        <p>Snap a photo of any receipt. GPT-4o Vision extracts merchant name, date, gross amount, VAT amount, VAT rate, and expense category automatically. Review and confirm in seconds.</p>
+        <div class="viz">
+          <div class="vat-row"><span class="lbl">Merchant</span><div class="track"><i style="width:100%"></i></div><span class="amt">Tesco</span></div>
+          <div class="vat-row"><span class="lbl">Gross</span><div class="track"><i style="width:80%"></i></div><span class="amt">€24.60</span></div>
+          <div class="vat-row"><span class="lbl">VAT 23%</span><div class="track"><i style="width:40%"></i></div><span class="amt">€4.60</span></div>
+        </div>
+      </article>
+
+      <article class="card showcase b3 reveal">
+        <span class="hud-corners" aria-hidden="true"></span>
+        <span class="tag">At a glance</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6"/></svg></div>
+        <h3>Tax Intelligence Dashboard</h3>
+        <p>Four key metrics, always live: estimated tax saved at your 20% or 40% bracket, VAT3 pipeline total, admin time reclaimed versus manual filing, and your Audit Shield compliance score.</p>
+        <div class="viz metric-tiles">
+          <div class="mt green"><small>Tax saved</small><b data-count="1284" data-prefix="€">€0</b></div>
+          <div class="mt indigo"><small>VAT3 pipeline</small><b data-count="612" data-prefix="€">€0</b></div>
+          <div class="mt amber"><small>Time reclaimed</small><b data-count="7.5" data-dec="1" data-suffix="h">0h</b></div>
+          <div class="mt green"><small>Audit shield</small><b data-count="94" data-suffix="%">0%</b></div>
+        </div>
+      </article>
+
+      <!-- Row 2 -->
+      <article class="card showcase b2 reveal">
+        <span class="hud-corners" aria-hidden="true"></span>
+        <span class="tag">Compliance</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <h3>Audit Shield</h3>
+        <p>Every receipt is checked against Revenue's disqualification rules in real time. Drill into risk items and category anomalies.</p>
+        <div class="viz shield-viz">
+          <div class="ring-prog">
+            <svg width="104" height="104" viewBox="0 0 104 104">
+              <circle cx="52" cy="52" r="46" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="8"/>
+              <circle class="prog-c" cx="52" cy="52" r="46" fill="none" stroke="#10B981" stroke-width="8" stroke-linecap="round" stroke-dasharray="289" stroke-dashoffset="289"/>
+            </svg>
+            <span class="val">94%</span>
+          </div>
+          <div class="shield-list">
+            <span class="li"><span class="d d-green"></span> 38 receipts compliant</span>
+            <span class="li"><span class="d d-amber"></span> 2 need review</span>
+            <span class="li"><span class="d d-red"></span> 1 disallowed flagged</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card showcase b2 reveal">
+        <span class="hud-corners" aria-hidden="true"></span>
+        <span class="tag">VAT3</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <h3>VAT3 Pipeline Tracking</h3>
+        <p>Real-time input VAT across every receipt, broken down by rate and ready for your bi-monthly VAT3 filing.</p>
+        <div class="viz">
+          <div class="vat-row"><span class="lbl">23%</span><div class="track"><i style="width:90%"></i></div><span class="amt">€412</span></div>
+          <div class="vat-row"><span class="lbl">13.5%</span><div class="track"><i style="width:46%"></i></div><span class="amt">€138</span></div>
+          <div class="vat-row"><span class="lbl">9%</span><div class="track"><i style="width:22%"></i></div><span class="amt">€48</span></div>
+          <div class="vat-row"><span class="lbl">0%</span><div class="track"><i style="width:8%"></i></div><span class="amt">€14</span></div>
+        </div>
+      </article>
+
+      <article class="card b2 reveal">
+        <span class="tag">Categorisation</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18M3 12h18M3 17h12"/></svg></div>
+        <h3>Irish Revenue Categories</h3>
+        <p>Expenses are sorted into Form 11 trading categories — Office &amp; Admin, Rent &amp; Utilities, Travel &amp; Subsistence, Advertising &amp; Marketing, Professional Fees. Disallowed items are flagged automatically.</p>
+        <div class="cat-chips" style="margin-top:16px">
+          <span class="chip ok">Office &amp; Admin</span>
+          <span class="chip ok">Travel</span>
+          <span class="chip ok">Prof. Fees</span>
+          <span class="chip no">Client entertainment</span>
+        </div>
+      </article>
+
+      <!-- Row 3 -->
+      <article class="card b2 reveal">
+        <span class="tag">Export</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15l2 2 4-4"/></svg></div>
+        <h3>Form 11 Summary &amp; PDF Export</h3>
+        <p>A full category breakdown mapped to Form 11 fields. Generate a professional PDF ready for your accountant or direct ROS submission.</p>
+      </article>
+
+      <article class="card b2 reveal">
+        <span class="tag">Section 887 TCA</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <h3>6-Year Retention Vault</h3>
+        <p>Receipts stored year by year with lock controls. Locked years resist accidental edits, and hard deletion within the statutory period is blocked at database level.</p>
+      </article>
+
+      <article class="card b2 reveal">
+        <span class="tag">Resilience</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14 0M8.5 16.05a6 6 0 0 1 7 0M2 8.82a15 15 0 0 1 20 0"/><line x1="12" y1="20" x2="12" y2="20"/></svg></div>
+        <h3>Offline-First Architecture</h3>
+        <p>Works without internet. Receipts queue in encrypted local storage (AES-256) and sync automatically when you're back online. Never lose a receipt to poor signal.</p>
+      </article>
+
+      <!-- Row 4 -->
+      <article class="card b3 wide reveal">
+        <span class="tag">Security</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><circle cx="12" cy="16" r="1"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <h3>Bank-Grade Security</h3>
+        <p>Encrypted in transit (TLS 1.2+) and at rest (AES-256). Row-Level Security keeps your data fully isolated from every other user. EU-hosted on AWS Dublin, GDPR compliant, with optional 6-digit PIN and biometric unlock (Face ID / fingerprint).</p>
+      </article>
+
+      <article class="card b3 wide reveal">
+        <span class="tag">Stay in the loop</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg></div>
+        <h3>Push Notifications</h3>
+        <p>Get notified the moment a receipt has been processed and categorised — no need to keep the app open while AI does the work.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHOWCASE ============ -->
+<section class="section" id="showcase" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head reveal" style="margin-left:auto;margin-right:auto;text-align:center">
+      <span class="eyebrow" style="justify-content:center">See it in action</span>
+      <h2>Your whole tax year, in your pocket</h2>
+      <p style="margin:0 auto">From the dashboard to the Audit Shield — here's what ROS Radar looks like day to day.</p>
+    </div>
+    <div class="shots">
+      <div class="shot reveal">
+        <div class="shot-frame"><div class="shot-screen">
+          <img src="images/home-screen.png" alt="ROS Radar home dashboard" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="shot-ph" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6"/></svg><span>home-screen.png</span></div>
+        </div></div>
+        <h3>Dashboard</h3>
+        <p>Tax saved, VAT3 pipeline and Audit Shield at a glance.</p>
+      </div>
+      <div class="shot reveal">
+        <div class="shot-frame"><div class="shot-screen">
+          <img src="images/audit-shield.png" alt="ROS Radar Audit Shield compliance score" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="shot-ph" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><span>audit-shield.png</span></div>
+        </div></div>
+        <h3>Audit Shield</h3>
+        <p>Live compliance scoring against Revenue rules.</p>
+      </div>
+      <div class="shot reveal">
+        <div class="shot-frame"><div class="shot-screen">
+          <img src="images/entry-methods.png" alt="ROS Radar receipt entry methods" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="shot-ph" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span>entry-methods.png</span></div>
+        </div></div>
+        <h3>Capture</h3>
+        <p>Snap a photo or upload from your gallery.</p>
+      </div>
+      <div class="shot reveal">
+        <div class="shot-frame"><div class="shot-screen">
+          <img src="images/tax-preferences.png" alt="ROS Radar tax preferences and bracket settings" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="shot-ph" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>tax-preferences.png</span></div>
+        </div></div>
+        <h3>Tax Preferences</h3>
+        <p>Set your bracket so estimates stay accurate.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<div class="hud-divider"><span class="seg"></span><span class="lbl">Process Sequence <b>// 03 Steps</b></span><span class="seg"></span></div>
+<section class="section" id="how">
+  <div class="wrap">
+    <div class="section-head reveal" style="margin-left:auto;margin-right:auto;text-align:center">
+      <span class="eyebrow" style="justify-content:center">How it works</span>
+      <h2>Three steps, start to filed</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="num">01</div>
+        <h3>Capture</h3>
+        <p>Take a photo or upload straight from your gallery. The image is compressed on-device before it ever leaves your phone.</p>
+      </div>
+      <div class="step reveal">
+        <div class="num">02</div>
+        <h3>AI Extracts</h3>
+        <p>GPT-4o Vision reads the receipt and categorises it in seconds — merchant, date, amounts, VAT, and Form 11 category.</p>
+      </div>
+      <div class="step reveal">
+        <div class="num">03</div>
+        <h3>Track &amp; File</h3>
+        <p>Review your dashboard, export your Form 11 summary, and file with confidence — knowing every record is audit-ready.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<div class="hud-divider"><span class="seg"></span><span class="lbl">Access Tier <b>// ROS Radar Pro</b></span><span class="seg"></span></div>
+<section class="section" id="pricing">
+  <div class="wrap">
+    <div class="section-head reveal" style="margin-left:auto;margin-right:auto;text-align:center">
+      <span class="eyebrow" style="justify-content:center">Simple pricing</span>
+      <h2>One plan. Everything included.</h2>
+      <p style="margin:0 auto">No tiers, no add-ons. Try it free for 7 days — cancel anytime before the trial ends.</p>
+    </div>
+    <div class="pricing-wrap reveal">
+      <div class="price-card">
+        <span class="hud-corners" aria-hidden="true"></span>
+        <span class="ribbon">7-day free trial</span>
+        <h3>ROS Radar Pro</h3>
+        <p class="plan-sub">For Irish self-employed, sole traders &amp; small businesses</p>
+        <div class="price-amt"><span class="num">€9.99</span><span class="per">/ month</span></div>
+        <p class="price-trial">Free for 7 days, then €9.99/month</p>
+        <ul class="feat-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Unlimited AI receipt scans</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Real-time VAT3 pipeline tracking</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Form 11 export &amp; tax summary</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Audit Shield analytics</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 6-year s.887 retention vault</li>
+        </ul>
+        <a href="#" class="btn btn-primary">Start Free Trial</a>
+        <p class="price-note">All prices in Euro, inclusive of VAT where applicable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST ============ -->
+<section class="section trust-band">
+  <div class="wrap">
+    <div class="section-head reveal" style="margin-left:auto;margin-right:auto;text-align:center">
+      <span class="eyebrow" style="justify-content:center">Compliance you can prove</span>
+      <h2>Built for Irish Revenue, hosted in Ireland</h2>
+    </div>
+    <div class="badges reveal">
+      <div class="badge">
+        <span class="bi"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <div><b>GDPR Compliant</b><small>EU 2016/679 &amp; Data Protection Act 2018</small></div>
+      </div>
+      <div class="badge">
+        <span class="bi"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg></span>
+        <div><b>EU-Hosted · Dublin</b><small>AWS EU-West-1, data stays in the EEA</small></div>
+      </div>
+      <div class="badge">
+        <span class="bi"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span>
+        <div><b>s.887 TCA 1997 Compliant</b><small>6-year statutory retention built in</small></div>
+      </div>
+    </div>
+    <div class="processors reveal">
+      <div class="proc"><b>Supabase</b><span>Database, auth &amp; storage on AWS EU-West-1, Dublin</span></div>
+      <div class="proc"><b>Stripe</b><span>PCI-compliant payment processing — we never see card numbers</span></div>
+      <div class="proc"><b>OpenAI</b><span>GPT-4o Vision, opted out of training-data usage</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-banner reveal">
+      <span class="eyebrow" style="justify-content:center">Stop dreading self-assessment</span>
+      <h2>Your next receipt could file itself</h2>
+      <p>Join Irish sole traders and small businesses keeping their books audit-ready, one photo at a time.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-store" aria-label="Get it on Google Play">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3 13 11.7l-2.5 2.5L3.6 2.3zM5 21.7 12.5 14l2.5 2.5L5 21.7zM20.4 10.4c.9.5.9 2.7 0 3.2l-3 1.7-2.7-2.7 2.7-2.7 3 1.5zM3.1 1.9C3 2.1 3 2.4 3 2.7v18.6c0 .3 0 .6.1.8L13 12 3.1 1.9z"/></svg>
+          <span class="sub"><small>Get it on</small><b>Google Play</b></span>
+        </a>
+        <a href="#" class="btn btn-store" aria-label="Download on the App Store">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.7c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.6-1.7-3.2-1.7-1.4-.1-2.6.8-3.3.8-.7 0-1.7-.8-2.8-.8-1.4 0-2.8.8-3.5 2.1-1.5 2.6-.4 6.4 1.1 8.5.7 1 1.5 2.2 2.6 2.1 1-.04 1.4-.7 2.7-.7 1.2 0 1.6.7 2.7.6 1.1 0 1.8-1 2.5-2 .8-1.2 1.1-2.3 1.1-2.4-.02-.01-2.1-.8-2.1-3.1zM14.3 6.2c.6-.7 1-1.7.9-2.7-.8 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.07 1.8-.5 2.5-1.2z"/></svg>
+          <span class="sub"><small>Download on the</small><b>App Store</b></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#top" class="brand">
+          <span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          ROS&nbsp;Radar
+        </a>
+        <p>AI-powered expense tracking and VAT3 pipeline for Irish Form 11 self-assessment. Snap, sort, and stay audit-ready.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Product</h4>
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+      <div class="foot-col">
+        <h4>Legal</h4>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="mailto:legal@rosradar.ie">legal@rosradar.ie</a>
+      </div>
+    </div>
+    <div class="foot-status">
+      <span class="live"></span> System status: <b>Operational</b> · AWS EU-West-1 Dublin · Uptime 99.9% · TLS 1.2+ · AES-256
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 ROS Radar. All rights reserved. Republic of Ireland.</span>
+      <span>GDPR Compliant · EU-Hosted in Dublin</span>
+    </div>
+    <p class="disclaimer">ROS Radar is not a licensed tax adviser. Consult a qualified Chartered Tax Adviser before filing.</p>
+  </div>
+</footer>
+
+<script>
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// sticky nav shadow + scroll progress
+const nav=document.getElementById('nav');
+const progress=document.getElementById('progress');
+const onScroll=()=>{
+  nav.classList.toggle('scrolled',window.scrollY>10);
+  const h=document.documentElement;
+  const p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);
+  progress.style.transform='scaleX('+p+')';
+};
+onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+
+// mobile menu
+const toggle=document.getElementById('navToggle');
+const links=document.getElementById('navLinks');
+toggle.addEventListener('click',()=>{
+  const open=links.classList.toggle('open');
+  toggle.classList.toggle('open',open);
+  toggle.setAttribute('aria-expanded',open);
+});
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  links.classList.remove('open');toggle.classList.remove('open');toggle.setAttribute('aria-expanded',false);
+}));
+
+// count-up helper
+function countUp(el){
+  const target=parseFloat(el.dataset.count),dec=parseInt(el.dataset.dec||0),
+        pre=el.dataset.prefix||'',suf=el.dataset.suffix||'',dur=1300,t0=performance.now();
+  const fmt=n=>pre+(dec?n.toFixed(dec):Math.round(n).toLocaleString('en-IE'))+suf;
+  if(reduce){el.textContent=fmt(target);return;}
+  const tick=now=>{
+    const k=Math.min((now-t0)/dur,1),e=1-Math.pow(1-k,3);
+    el.textContent=fmt(target*e);
+    if(k<1)requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+// reveal on scroll + audit ring draw + count-up
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+      const ring=e.target.querySelector('.prog-c');
+      if(ring&&!reduce){ring.style.transition='stroke-dashoffset 1.5s cubic-bezier(.2,.8,.2,1)';ring.style.strokeDashoffset=(289*(1-0.94)).toFixed(1);}
+      else if(ring){ring.style.strokeDashoffset=(289*(1-0.94)).toFixed(1);}
+      e.target.querySelectorAll('[data-count]').forEach(countUp);
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+if(!reduce){
+  // feature card cursor spotlight
+  document.querySelectorAll('.card').forEach(card=>{
+    card.addEventListener('mousemove',ev=>{
+      const r=card.getBoundingClientRect();
+      card.style.setProperty('--mx',(ev.clientX-r.left)+'px');
+      card.style.setProperty('--my',(ev.clientY-r.top)+'px');
+    });
+  });
+
+  // hero phone tilt + ambient spotlight
+  const visual=document.querySelector('.hero-visual');
+  const phone=document.querySelector('.scope');
+  const ambient=document.querySelector('.hero-ambient');
+  const hero=document.querySelector('.hero');
+  if(visual&&phone){
+    visual.addEventListener('mousemove',ev=>{
+      const r=visual.getBoundingClientRect();
+      const rx=((ev.clientY-r.top)/r.height-.5)*-14;
+      const ry=((ev.clientX-r.left)/r.width-.5)*16;
+      phone.style.transform='rotateX('+rx+'deg) rotateY('+ry+'deg) translateZ(10px)';
+    });
+    visual.addEventListener('mouseleave',()=>{phone.style.transform='';});
+  }
+  if(hero&&ambient){
+    hero.addEventListener('mousemove',ev=>{
+      const r=hero.getBoundingClientRect();
+      ambient.style.setProperty('--hx',((ev.clientX-r.left)/r.width*100)+'%');
+      ambient.style.setProperty('--hy',((ev.clientY-r.top)/r.height*100)+'%');
+    });
+  }
+}
+</script>
+</body>
+</html>

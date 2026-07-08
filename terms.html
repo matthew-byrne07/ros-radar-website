@@ -7,9 +7,7 @@
 <meta name="description" content="ROS Radar Terms and Conditions. The legally binding agreement governing your use of the ROS Radar app, under the laws of the Republic of Ireland." />
 <meta name="theme-color" content="#121212" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310B981' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3C/svg%3E" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="fonts/fonts.css" rel="stylesheet">
 <style>
 :root{
   --bg:#121212;--bg-deep:#0c0c0c;--surface:#1E1E1E;--surface-2:#242424;
@@ -225,7 +223,7 @@ main{padding:30px 0 90px}
 
     <section class="card">
       <h2><span class="n">07</span> AI-Powered Data Extraction</h2>
-      <p>ROS Radar uses a third-party AI vision model (OpenAI GPT-4o-mini) to extract financial data from receipt images. The following conditions apply:</p>
+      <p>ROS Radar uses a third-party AI vision model (OpenAI GPT-4o Vision) to extract financial data from receipt images. The following conditions apply:</p>
       <ul>
         <li>AI extraction is not infallible. Extracted values including amounts, dates, merchant names, and tax figures must be verified by you before reliance for tax purposes</li>
         <li>Receipt images are transmitted to OpenAI via a secure server-side function with data retention logging disabled. No personally identifiable information (PII) is included in API payloads</li>
@@ -246,7 +244,7 @@ main{padding:30px 0 90px}
       <ul>
         <li>All data is stored exclusively on infrastructure located in the European Union (AWS EU-West-1, Dublin, Ireland)</li>
         <li>No data is transferred to non-EEA jurisdictions without appropriate safeguards</li>
-        <li>Your PPS number is never stored in plaintext; it is hashed using one-way cryptographic functions</li>
+        <li>We do not request or store PPS numbers. Do not include PPS numbers or other sensitive identifiers in uploaded receipts (see Section 7)</li>
         <li>You have the right to access, rectify, erase (subject to statutory retention obligations), restrict processing, and port your personal data</li>
         <li>To exercise your data rights, contact us via the details in Section 14</li>
       </ul>

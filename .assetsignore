@@ -1,0 +1,9 @@
+.git
+.gitignore
+.claude
+.vscode
+.wrangler
+CLAUDE.md
+CNAME
+wrangler.jsonc
+.assetsignore

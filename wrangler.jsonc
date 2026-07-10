@@ -1,0 +1,11 @@
+{
+	"name": "rosradar",
+	"compatibility_date": "2026-07-10",
+	"assets": {
+		"directory": "./"
+	},
+	"routes": [
+		{ "pattern": "rosradar.ie", "custom_domain": true },
+		{ "pattern": "www.rosradar.ie", "custom_domain": true }
+	]
+}

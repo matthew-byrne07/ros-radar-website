@@ -10,3 +10,6 @@ _*.png
 
 # Claude Code local state
 .claude/
+
+# Wrangler local cache
+.wrangler/

@@ -4,6 +4,8 @@
 .vscode
 .wrangler
 CLAUDE.md
+PRODUCT.md
+DESIGN.md
 CNAME
 wrangler.jsonc
 .assetsignore

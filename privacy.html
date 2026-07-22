@@ -1,407 +1,319 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Privacy Policy — ROS Radar</title>
-<meta name="description" content="ROS Radar Privacy Policy. How we collect, process, and protect your personal data under GDPR and the Data Protection Act 2018 (Ireland)." />
-<meta name="theme-color" content="#121212" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310B981' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3C/svg%3E" />
-<link href="fonts/fonts.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <style>
-:root{
-  --bg:#121212;--bg-deep:#0c0c0c;--surface:#1E1E1E;--surface-2:#242424;
-  --border:rgba(255,255,255,0.08);--border-strong:rgba(255,255,255,0.14);
-  --emerald:#10B981;--emerald-bright:#34D399;--emerald-dim:rgba(16,185,129,0.12);
-  --amber:#F59E0B;--red:#EF4444;--indigo:#6366F1;
-  --text:#FFFFFF;--text-soft:#C7C9CC;--text-muted:#8A8F98;--faint:#6b6f76;
-  --display:"Bricolage Grotesque",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-  --font:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  --mono:"JetBrains Mono",ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
-  --radius:16px;--maxw:860px;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%}
-body{font-family:var(--font);background-color:var(--bg);
-  background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
-  background-size:56px 56px;background-attachment:fixed;
-  color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-a{color:var(--emerald-bright);text-decoration:none;word-break:break-word}
-a:hover{text-decoration:underline}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;width:100%}
-::selection{background:rgba(16,185,129,.3);color:#fff}
-
-/* nav (shared) */
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(18,18,18,.72);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
-.nav.scrolled{border-bottom-color:var(--border);background:rgba(14,14,14,.85)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px;max-width:1180px;margin:0 auto;padding:0 24px}
-.brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:1.12rem;letter-spacing:-.01em;color:#fff}
-.brand:hover{text-decoration:none}
-.brand .logo{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(150deg,rgba(16,185,129,.22),rgba(16,185,129,.06));border:1px solid rgba(16,185,129,.35)}
-.brand .logo svg{width:19px;height:19px;stroke:var(--emerald-bright)}
-.nav-links{display:flex;align-items:center;gap:6px}
-.nav-links a{font-size:.92rem;color:var(--text-soft);padding:9px 14px;border-radius:9px;transition:color .2s,background .2s;font-weight:500}
-.nav-links a:hover{color:#fff;background:var(--surface-2);text-decoration:none}
-.nav-links a.active{color:var(--emerald-bright)}
-.nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:8px}
-.nav-toggle span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:.25s;margin:5px 0}
-.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.nav-toggle.open span:nth-child(2){opacity:0}
-.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-
-/* header */
-.legal-hero{padding:140px 0 40px;position:relative;overflow:hidden}
-.legal-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 80% 0%,rgba(16,185,129,.12),transparent 70%);pointer-events:none}
-.legal-hero .wrap{position:relative}
-.eyebrow{font-family:var(--mono);font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--emerald-bright);display:inline-flex;align-items:center;gap:8px}
-.eyebrow::before{content:"";width:18px;height:1px;background:var(--emerald);opacity:.7}
-.legal-hero h1{font-family:var(--display);font-size:clamp(2.2rem,5vw,3.2rem);font-weight:800;letter-spacing:-.025em;margin:18px 0 16px}
-.card h2{font-family:var(--display)}
-.progress{position:fixed;top:0;left:0;height:3px;width:100%;transform:scaleX(0);transform-origin:0 50%;z-index:200;background:linear-gradient(90deg,var(--emerald),var(--emerald-bright),var(--indigo));box-shadow:0 0 12px rgba(16,185,129,.5)}
-.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
-.meta span{font-size:.84rem;color:var(--text-muted);background:var(--surface);border:1px solid var(--border);padding:7px 13px;border-radius:999px;font-family:var(--mono)}
-
-/* sections */
-main{padding:30px 0 90px}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:30px 30px;margin-bottom:18px}
-.card h2{font-size:1.28rem;font-weight:700;letter-spacing:-.015em;margin-bottom:6px;display:flex;align-items:baseline;gap:12px}
-.card h2 .n{font-family:var(--mono);font-size:.85rem;color:var(--emerald-bright);font-weight:600;flex:none}
-.card h3{font-size:1.02rem;font-weight:700;color:#fff;margin:20px 0 8px}
-.card p{color:var(--text-soft);margin:12px 0;font-size:.98rem}
-.card ul{list-style:none;margin:12px 0;padding:0}
-.card li{color:var(--text-soft);position:relative;padding-left:22px;margin:9px 0;font-size:.96rem}
-.card li::before{content:"";position:absolute;left:4px;top:11px;width:6px;height:6px;border-radius:50%;background:var(--emerald);opacity:.8}
-.card strong{color:#fff;font-weight:600}
-.card .lede{color:var(--text-muted);font-size:.95rem;margin-top:0}
-.addr{font-style:normal;color:var(--text-soft);line-height:1.8;display:block;margin:10px 0}
-
-/* highlighted */
-.card.hl-green{border-left:3px solid var(--emerald);background:linear-gradient(100deg,rgba(16,185,129,.06),var(--surface) 30%)}
-.card.hl-amber{border-left:3px solid var(--amber);background:linear-gradient(100deg,rgba(245,158,11,.06),var(--surface) 30%)}
-.card.hl-green h2 .n{color:var(--emerald-bright)}
-.card.hl-amber h2 .n{color:var(--amber)}
-
-/* footer */
-.footer{border-top:1px solid var(--border);padding:40px 0;background:var(--bg-deep);text-align:center}
-.footer p{color:var(--faint);font-size:.86rem;margin:6px 0}
-.footer .links{margin-bottom:14px}
-.footer .links a{margin:0 10px;color:var(--text-muted);font-size:.9rem}
-
-/* heading FX + box corners */
-.legal-hero h1{text-shadow:0 0 24px rgba(16,185,129,.3)}
-.card h2{animation:hpulse 6s ease-in-out infinite}
-@keyframes hpulse{0%,100%{text-shadow:0 0 12px rgba(16,185,129,.16)}50%{text-shadow:0 0 24px rgba(16,185,129,.42)}}
-.card{position:relative}
-.card::before{content:"";position:absolute;inset:10px;pointer-events:none;z-index:1;
-  --c:rgba(16,185,129,.34);--s:12px;--t:1.5px;
-  background:
-    linear-gradient(var(--c),var(--c)) 0 0/var(--s) var(--t) no-repeat,
-    linear-gradient(var(--c),var(--c)) 0 0/var(--t) var(--s) no-repeat,
-    linear-gradient(var(--c),var(--c)) 100% 0/var(--s) var(--t) no-repeat,
-    linear-gradient(var(--c),var(--c)) 100% 0/var(--t) var(--s) no-repeat,
-    linear-gradient(var(--c),var(--c)) 0 100%/var(--s) var(--t) no-repeat,
-    linear-gradient(var(--c),var(--c)) 0 100%/var(--t) var(--s) no-repeat,
-    linear-gradient(var(--c),var(--c)) 100% 100%/var(--s) var(--t) no-repeat,
-    linear-gradient(var(--c),var(--c)) 100% 100%/var(--t) var(--s) no-repeat}
-@media(prefers-reduced-motion:reduce){.card h2{animation:none}}
-@media(max-width:760px){
-  .nav-links{position:fixed;top:72px;left:0;right:0;flex-direction:column;align-items:stretch;gap:4px;background:rgba(12,12,12,.97);backdrop-filter:blur(14px);padding:16px 20px 24px;border-bottom:1px solid var(--border);transform:translateY(-130%);transition:transform .3s}
-  .nav-links.open{transform:translateY(0)}
-  .nav-links a{padding:13px 14px}
-  .nav-toggle{display:block}
-  .legal-hero{padding:120px 0 30px}
-  .card{padding:24px 20px}
-  .card h2{flex-direction:column;gap:4px}
-}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+  :root {
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #FCF8F5;
+    color: #241A15;
+    line-height: 1.55;
+  }
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 64px;
+  }
+  h1 {
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    margin: 0 0 12px;
+  }
+  .brand {
+    display: block;
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 14px;
+  }
+  .meta {
+    text-align: center;
+    color: #8A7A72;
+    font-size: 12px;
+    margin: 2px 0;
+  }
+  section {
+    background: #FFFFFF;
+    border: 1px solid #EDE3DC;
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin: 18px 0;
+  }
+  section.highlight {
+    border-color: #FB9A57;
+    background: #FFF4EB;
+  }
+  h2 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+  p {
+    margin: 0 0 12px;
+    font-size: 14px;
+  }
+  p:last-child {
+    margin-bottom: 0;
+  }
+  ul {
+    margin: 0 0 12px;
+    padding-left: 20px;
+    font-size: 14px;
+  }
+  ul:last-child {
+    margin-bottom: 0;
+  }
+  li {
+    margin-bottom: 6px;
+  }
+  .footer {
+    text-align: center;
+    color: #8A7A72;
+    font-size: 11px;
+    margin-top: 28px;
+  }
 </style>
 </head>
 <body>
+<div class="wrap">
+  <img class="brand" src="/logo-mark.png" alt="ROS Radar" width="72" height="72">
+  <h1>Privacy Policy</h1>
+  <p class="meta">Last updated: 23 May 2026</p>
+  <p class="meta">Applies to: ROS Radar iOS &amp; Android App</p>
 
-<div class="progress" id="progress"></div>
-<nav class="nav" id="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="brand">
-      <span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
-      ROS&nbsp;Radar
-    </a>
-    <div class="nav-links" id="navLinks">
-      <a href="index.html">Home</a>
-      <a href="index.html#features">Features</a>
-      <a href="index.html#pricing">Pricing</a>
-      <a href="privacy.html" class="active">Privacy Policy</a>
-      <a href="terms.html">Terms &amp; Conditions</a>
-    </div>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
-  </div>
-</nav>
+  <section>
+    <h2>1. Who We Are (Data Controller)</h2>
+    <p>ROS Radar ("we", "us", "our") is the data controller responsible for the personal data processed through this application.</p>
+    <p>ROS Radar is a mobile application incorporated and operating under the laws of the Republic of Ireland.</p>
+    <p>Contact:<br>
+    Email: privacy@rosradar.ie<br>
+    Data Protection Officer: dpo@rosradar.ie<br>
+    Supervisory Authority: Data Protection Commission (DPC)<br>
+    www.dataprotection.ie</p>
+    <p>This Privacy Policy is provided in compliance with Article 13 of the General Data Protection Regulation (EU) 2016/679 (GDPR) and the Data Protection Act 2018 (Ireland).</p>
+  </section>
 
-<header class="legal-hero">
-  <div class="wrap">
-    <span class="eyebrow">Legal</span>
-    <h1>Privacy Policy</h1>
-    <div class="meta">
-      <span>Last updated: 23 May 2026</span>
-      <span>Applies to: ROS Radar iOS &amp; Android App</span>
-    </div>
-  </div>
-</header>
+  <section>
+    <h2>2. What Personal Data We Collect</h2>
+    <p>We collect and process the following categories of personal data:</p>
+    <p><strong>A. Account &amp; Identity Data</strong></p>
+    <ul>
+      <li>Full name and email address (provided at registration)</li>
+      <li>Business name and business category (optional, provided by you)</li>
+      <li>Profile metadata you choose to add (e.g. company name)</li>
+    </ul>
+    <p><strong>B. Receipt &amp; Financial Data</strong></p>
+    <ul>
+      <li>Images of physical receipts and invoices captured via your device camera or uploaded from your photo library</li>
+      <li>AI-extracted financial data from those images: merchant name, transaction date, gross amount, VAT amount, VAT rate, expense category</li>
+      <li>Business expense totals and VAT3 reclaim summaries derived from your records</li>
+      <li>Expense classifications (allowable, disallowed) and audit flag metadata</li>
+    </ul>
+    <p><strong>C. Payment &amp; Subscription Data</strong></p>
+    <ul>
+      <li>Subscription plan status and billing period dates (stored by us)</li>
+      <li>Payment card details and billing address (collected and stored exclusively by Stripe — we never see or store raw card numbers)</li>
+      <li>Stripe Customer ID (a reference token we store to link your account to your Stripe billing record)</li>
+    </ul>
+    <p><strong>D. Technical &amp; Device Data</strong></p>
+    <ul>
+      <li>Authentication tokens (session JWTs, managed by Supabase Auth)</li>
+      <li>App preferences (theme, tax bracket setting — stored locally on device via SharedPreferences)</li>
+      <li>Basic usage logs and error traces for debugging purposes (no receipt content is included in logs)</li>
+    </ul>
+  </section>
 
-<main>
-  <div class="wrap">
+  <section>
+    <h2>3. Purposes &amp; Legal Basis for Processing</h2>
+    <p>We process your personal data under the following GDPR Article 6 lawful bases:</p>
+    <p><strong>Performance of Contract (Art. 6(1)(b))</strong></p>
+    <ul>
+      <li>Providing the core receipt scanning, AI extraction, and expense tracking service you signed up for</li>
+      <li>Managing your account, authentication, and subscription</li>
+      <li>Delivering the Form 11 Self-Assessment ledger functionality</li>
+    </ul>
+    <p><strong>Legal Obligation (Art. 6(1)(c))</strong></p>
+    <ul>
+      <li>Retaining financial records for a minimum of 6 years as required under Section 887 of the Taxes Consolidation Act 1997</li>
+      <li>Complying with Irish Revenue Commissioners record-keeping obligations</li>
+      <li>Complying with anti-money laundering and fraud prevention obligations where applicable</li>
+    </ul>
+    <p><strong>Legitimate Interests (Art. 6(1)(f))</strong></p>
+    <ul>
+      <li>Improving AI extraction accuracy and app reliability using anonymised aggregate data</li>
+      <li>Preventing fraud and abuse of the platform</li>
+      <li>Sending transactional communications (e.g. subscription confirmations, trial reminders)</li>
+    </ul>
+    <p><strong>Consent (Art. 6(1)(a)) — where explicitly obtained</strong></p>
+    <ul>
+      <li>Sending optional marketing communications (you may withdraw consent at any time)</li>
+    </ul>
+  </section>
 
-    <section class="card">
-      <h2><span class="n">01</span> Who We Are (Data Controller)</h2>
-      <p>ROS Radar ("we", "us", "our") is the data controller responsible for the personal data processed through this application.</p>
-      <p>ROS Radar is a mobile application incorporated and operating under the laws of the Republic of Ireland.</p>
-      <h3>Contact:</h3>
-      <address class="addr">
-        Email: <a href="mailto:privacy@rosradar.ie">privacy@rosradar.ie</a><br>
-        Data Protection Officer: <a href="mailto:dpo@rosradar.ie">dpo@rosradar.ie</a><br>
-        Supervisory Authority: Data Protection Commission (DPC)<br>
-        <a href="https://www.dataprotection.ie" target="_blank" rel="noopener noreferrer">www.dataprotection.ie</a>
-      </address>
-      <p>This Privacy Policy is provided in compliance with Article 13 of the General Data Protection Regulation (EU) 2016/679 (GDPR) and the Data Protection Act 2018 (Ireland).</p>
-    </section>
+  <section>
+    <h2>4. How Data Is Processed — Technical Pipeline</h2>
+    <p>When you capture a receipt, the following processing steps occur:</p>
+    <p>1. Capture — Your device camera or photo library produces a raw image. The image is compressed on-device (JPEG, max 1920px, ~800KB) before any upload to reduce data transfer.</p>
+    <p>2. Secure Upload — The compressed image is transmitted over an encrypted TLS connection to Supabase Storage (EU-hosted, AWS EU-West-1, Dublin, Ireland). Each image is stored in a private, user-isolated storage bucket. No other user can access your files.</p>
+    <p>3. AI Extraction — A server-side Edge Function (Deno runtime, hosted on Supabase) is triggered by the upload. This function calls the OpenAI GPT-4o-mini vision API to extract financial data. The image URL is passed securely via server-to-server call; your device never communicates directly with OpenAI. We have configured our OpenAI integration to opt out of model training on submitted data.</p>
+    <p>4. Structured Storage — Extracted data (merchant name, date, amounts, VAT, category) is written to a PostgreSQL database hosted on Supabase (EU-West-1). Row-Level Security (RLS) policies ensure only your account can query your own records.</p>
+    <p>5. Display — Structured data is returned to your device over an authenticated, encrypted API connection and rendered locally in the app.</p>
+  </section>
 
-    <section class="card">
-      <h2><span class="n">02</span> What Personal Data We Collect</h2>
-      <p>We collect and process the following categories of personal data:</p>
-      <h3>A. Account &amp; Identity Data</h3>
-      <ul>
-        <li>Full name and email address (provided at registration)</li>
-        <li>Business name and business category (optional, provided by you)</li>
-        <li>Profile metadata you choose to add (e.g. company name)</li>
-      </ul>
-      <h3>B. Receipt &amp; Financial Data</h3>
-      <ul>
-        <li>Images of physical receipts and invoices captured via your device camera or uploaded from your photo library</li>
-        <li>AI-extracted financial data from those images: merchant name, transaction date, gross amount, VAT amount, VAT rate, expense category</li>
-        <li>Business expense totals and VAT3 reclaim summaries derived from your records</li>
-        <li>Expense classifications (allowable, disallowed) and audit flag metadata</li>
-      </ul>
-      <h3>C. Payment &amp; Subscription Data</h3>
-      <ul>
-        <li>Subscription plan status and billing period dates (stored by us)</li>
-        <li>Payment card details and billing address (collected and stored exclusively by Stripe — we never see or store raw card numbers)</li>
-        <li>Stripe Customer ID (a reference token we store to link your account to your Stripe billing record)</li>
-      </ul>
-      <h3>D. Technical &amp; Device Data</h3>
-      <ul>
-        <li>Authentication tokens (session JWTs, managed by Supabase Auth)</li>
-        <li>App preferences (theme, tax bracket setting — stored locally on device via SharedPreferences)</li>
-        <li>Basic usage logs and error traces for debugging purposes (no receipt content is included in logs)</li>
-      </ul>
-    </section>
+  <section>
+    <h2>5. Third-Party Data Processors</h2>
+    <p>We share data with the following sub-processors. All are GDPR-compliant and operate under Data Processing Agreements (DPAs) with us:</p>
+    <p><strong>Supabase, Inc.</strong></p>
+    <ul>
+      <li>Role: Authentication provider, relational database host, file storage provider</li>
+      <li>Data processed: Email, name, receipt images, extracted financial records, session tokens</li>
+      <li>Location: AWS EU-West-1 (Dublin, Ireland) — data remains within the EEA</li>
+      <li>Privacy: supabase.com/privacy</li>
+    </ul>
+    <p><strong>Stripe, Inc.</strong></p>
+    <ul>
+      <li>Role: Payment processor and subscription billing manager</li>
+      <li>Data processed: Payment card details, billing address, subscription status</li>
+      <li>Location: Stripe is certified under the EU–US Data Privacy Framework and processes EU data in compliance with GDPR</li>
+      <li>Privacy: stripe.com/ie/privacy</li>
+    </ul>
+    <p><strong>OpenAI, LLC</strong></p>
+    <ul>
+      <li>Role: AI vision model for receipt data extraction (server-side only)</li>
+      <li>Data processed: Receipt images (temporarily, for inference only). No account or identity data is included in API payloads</li>
+      <li>Retention: OpenAI retains API inputs for up to 30 days for abuse monitoring; we have opted out of training data use</li>
+      <li>Privacy: openai.com/policies/privacy-policy</li>
+    </ul>
+    <p>We do not sell your personal data to any third party.</p>
+  </section>
 
-    <section class="card">
-      <h2><span class="n">03</span> Purposes &amp; Legal Basis for Processing</h2>
-      <p>We process your personal data under the following GDPR Article 6 lawful bases:</p>
-      <h3>Performance of Contract (Art. 6(1)(b))</h3>
-      <ul>
-        <li>Providing the core receipt scanning, AI extraction, and expense tracking service you signed up for</li>
-        <li>Managing your account, authentication, and subscription</li>
-        <li>Delivering the Form 11 Self-Assessment ledger functionality</li>
-      </ul>
-      <h3>Legal Obligation (Art. 6(1)(c))</h3>
-      <ul>
-        <li>Retaining financial records for a minimum of 6 years as required under Section 887 of the Taxes Consolidation Act 1997</li>
-        <li>Complying with Irish Revenue Commissioners record-keeping obligations</li>
-        <li>Complying with anti-money laundering and fraud prevention obligations where applicable</li>
-      </ul>
-      <h3>Legitimate Interests (Art. 6(1)(f))</h3>
-      <ul>
-        <li>Improving AI extraction accuracy and app reliability using anonymised aggregate data</li>
-        <li>Preventing fraud and abuse of the platform</li>
-        <li>Sending transactional communications (e.g. subscription confirmations, trial reminders)</li>
-      </ul>
-      <h3>Consent (Art. 6(1)(a)) — where explicitly obtained</h3>
-      <ul>
-        <li>Sending optional marketing communications (you may withdraw consent at any time)</li>
-      </ul>
-    </section>
+  <section>
+    <h2>6. Data Retention</h2>
+    <p>Retention periods are determined by legal obligations and operational necessity:</p>
+    <p><strong>Receipt images &amp; extracted financial data</strong></p>
+    <ul>
+      <li>Retained for a minimum of 6 years from the end of the tax year to which the receipt relates, in compliance with Section 887 TCA 1997</li>
+      <li>Hard deletion within the 6-year statutory period is blocked at the database level</li>
+    </ul>
+    <p><strong>Account &amp; identity data</strong></p>
+    <ul>
+      <li>Retained for the duration of your account plus 12 months after account closure, to allow dispute resolution</li>
+      <li>After 12 months post-closure, account data is permanently deleted unless a legal hold applies</li>
+    </ul>
+    <p><strong>Payment records</strong></p>
+    <ul>
+      <li>Transaction records are retained for 7 years in compliance with Irish Revenue and VAT obligations</li>
+    </ul>
+    <p><strong>Session tokens &amp; authentication data</strong></p>
+    <ul>
+      <li>Active session tokens expire after 1 hour (Supabase default). Refresh tokens expire after 30 days of inactivity</li>
+    </ul>
+    <p><strong>Technical logs</strong></p>
+    <ul>
+      <li>Error and debug logs are retained for 30 days and contain no receipt content or financial amounts</li>
+    </ul>
+  </section>
 
-    <section class="card">
-      <h2><span class="n">04</span> How Data Is Processed — Technical Pipeline</h2>
-      <p>When you capture a receipt, the following processing steps occur:</p>
-      <p><strong>Capture</strong> — Your device camera or photo library produces a raw image. The image is compressed on-device (JPEG, max 1920px, ~800KB) before any upload to reduce data transfer.</p>
-      <p><strong>Secure Upload</strong> — The compressed image is transmitted over an encrypted TLS connection to Supabase Storage (EU-hosted, AWS EU-West-1, Dublin, Ireland). Each image is stored in a private, user-isolated storage bucket. No other user can access your files.</p>
-      <p><strong>AI Extraction</strong> — A server-side Edge Function (Deno runtime, hosted on Supabase) is triggered by the upload. This function calls the OpenAI GPT-4o Vision API to extract financial data. The image URL is passed securely via server-to-server call; your device never communicates directly with OpenAI. We have configured our OpenAI integration to opt out of model training on submitted data.</p>
-      <p><strong>Structured Storage</strong> — Extracted data (merchant name, date, amounts, VAT, category) is written to a PostgreSQL database hosted on Supabase (EU-West-1). Row-Level Security (RLS) policies ensure only your account can query your own records.</p>
-      <p><strong>Display</strong> — Structured data is returned to your device over an authenticated, encrypted API connection and rendered locally in the app.</p>
-    </section>
+  <section>
+    <h2>7. Data Security</h2>
+    <p>We implement the following technical and organisational security measures:</p>
+    <ul>
+      <li>All data in transit is encrypted using TLS 1.2 or higher</li>
+      <li>All data at rest is encrypted using AES-256 (enforced by Supabase/AWS)</li>
+      <li>Row-Level Security (RLS) policies at the database level ensure complete data isolation between users — no user can read, write, or query another user's records</li>
+      <li>Private storage bucket policies prevent direct access to receipt images without a valid authenticated session</li>
+      <li>Passwords are hashed using bcrypt (managed by Supabase Auth — we never store plaintext passwords)</li>
+      <li>API access requires a valid JWT signed with your Supabase project secret</li>
+      <li>Edge Functions run in an isolated Deno environment with no persistent file system</li>
+    </ul>
+    <p>In the event of a personal data breach that is likely to result in risk to your rights and freedoms, we will notify the Data Protection Commission within 72 hours and affected users without undue delay, as required by GDPR Article 33.</p>
+  </section>
 
-    <section class="card">
-      <h2><span class="n">05</span> Third-Party Data Processors</h2>
-      <p>We share data with the following sub-processors. All are GDPR-compliant and operate under Data Processing Agreements (DPAs) with us:</p>
-      <h3>Supabase, Inc.</h3>
-      <ul>
-        <li>Role: Authentication provider, relational database host, file storage provider</li>
-        <li>Data processed: Email, name, receipt images, extracted financial records, session tokens</li>
-        <li>Location: AWS EU-West-1 (Dublin, Ireland) — data remains within the EEA</li>
-        <li>Privacy: <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">supabase.com/privacy</a></li>
-      </ul>
-      <h3>Stripe, Inc.</h3>
-      <ul>
-        <li>Role: Payment processor and subscription billing manager</li>
-        <li>Data processed: Payment card details, billing address, subscription status</li>
-        <li>Location: Stripe is certified under the EU–US Data Privacy Framework and processes EU data in compliance with GDPR</li>
-        <li>Privacy: <a href="https://stripe.com/ie/privacy" target="_blank" rel="noopener noreferrer">stripe.com/ie/privacy</a></li>
-      </ul>
-      <h3>OpenAI, LLC</h3>
-      <ul>
-        <li>Role: AI vision model for receipt data extraction (server-side only)</li>
-        <li>Data processed: Receipt images (temporarily, for inference only). No account or identity data is included in API payloads</li>
-        <li>Retention: OpenAI retains API inputs for up to 30 days for abuse monitoring; we have opted out of training data use</li>
-        <li>Privacy: <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer">openai.com/policies/privacy-policy</a></li>
-      </ul>
-      <p>We do not sell your personal data to any third party.</p>
-    </section>
+  <section>
+    <h2>8. International Data Transfers</h2>
+    <p>Your data is primarily stored and processed within the European Economic Area (EEA) on AWS EU-West-1 infrastructure in Dublin, Ireland.</p>
+    <p>Where transfers outside the EEA occur (e.g. certain Stripe or OpenAI operations), we ensure these are protected by:</p>
+    <ul>
+      <li>EU Standard Contractual Clauses (SCCs) incorporated into our processor agreements</li>
+      <li>The EU–US Data Privacy Framework (where applicable)</li>
+      <li>Adequacy decisions issued by the European Commission</li>
+    </ul>
+    <p>No receipt images or financial records are routinely transferred outside the EEA.</p>
+  </section>
 
-    <section class="card">
-      <h2><span class="n">06</span> Data Retention</h2>
-      <p>Retention periods are determined by legal obligations and operational necessity:</p>
-      <h3>Receipt images &amp; extracted financial data</h3>
-      <ul>
-        <li>Retained for a minimum of 6 years from the end of the tax year to which the receipt relates, in compliance with Section 887 TCA 1997</li>
-        <li>Hard deletion within the 6-year statutory period is blocked at the database level</li>
-      </ul>
-      <h3>Account &amp; identity data</h3>
-      <ul>
-        <li>Retained for the duration of your account plus 12 months after account closure, to allow dispute resolution</li>
-        <li>After 12 months post-closure, account data is permanently deleted unless a legal hold applies</li>
-      </ul>
-      <h3>Payment records</h3>
-      <ul>
-        <li>Transaction records are retained for 7 years in compliance with Irish Revenue and VAT obligations</li>
-      </ul>
-      <h3>Session tokens &amp; authentication data</h3>
-      <ul>
-        <li>Active session tokens expire after 1 hour (Supabase default). Refresh tokens expire after 30 days of inactivity</li>
-      </ul>
-      <h3>Technical logs</h3>
-      <ul>
-        <li>Error and debug logs are retained for 30 days and contain no receipt content or financial amounts</li>
-      </ul>
-    </section>
+  <section class="highlight">
+    <h2>9. Your Rights Under GDPR (Articles 15–22)</h2>
+    <p>You have the following rights in relation to your personal data:</p>
+    <p><strong>Right of Access (Art. 15)</strong><br>
+    You may request a copy of all personal data we hold about you. We will respond within 30 days.</p>
+    <p><strong>Right to Rectification (Art. 16)</strong><br>
+    You may request correction of inaccurate or incomplete data. You can update your name and email directly in Profile &amp; Settings.</p>
+    <p><strong>Right to Erasure — "Right to be Forgotten" (Art. 17)</strong><br>
+    You may request deletion of your account and personal data. Note: financial records within the 6-year s.887 TCA 1997 statutory retention period cannot be deleted until that period expires, as deletion would constitute a legal breach. We will delete all data outside this obligation.</p>
+    <p><strong>Right to Restriction of Processing (Art. 18)</strong><br>
+    You may request that we restrict processing of your data while a dispute is being resolved.</p>
+    <p><strong>Right to Data Portability (Art. 20)</strong><br>
+    You may request an export of your expense records in a structured, machine-readable format (JSON or CSV).</p>
+    <p><strong>Right to Object (Art. 21)</strong><br>
+    You may object to processing based on legitimate interests (e.g. marketing). We will cease that processing unless we can demonstrate compelling legitimate grounds.</p>
+    <p><strong>Right to Withdraw Consent (Art. 7(3))</strong><br>
+    Where processing is based on your consent, you may withdraw it at any time without affecting the lawfulness of prior processing.</p>
+    <p>To exercise any right, email: privacy@rosradar.ie<br>
+    We will respond within 30 days. No fee is charged for standard requests.</p>
+  </section>
 
-    <section class="card">
-      <h2><span class="n">07</span> Data Security</h2>
-      <p>We implement the following technical and organisational security measures:</p>
-      <ul>
-        <li>All data in transit is encrypted using TLS 1.2 or higher</li>
-        <li>All data at rest is encrypted using AES-256 (enforced by Supabase/AWS)</li>
-        <li>Row-Level Security (RLS) policies at the database level ensure complete data isolation between users — no user can read, write, or query another user's records</li>
-        <li>Private storage bucket policies prevent direct access to receipt images without a valid authenticated session</li>
-        <li>Passwords are hashed using bcrypt (managed by Supabase Auth — we never store plaintext passwords)</li>
-        <li>API access requires a valid JWT signed with your Supabase project secret</li>
-        <li>Edge Functions run in an isolated Deno environment with no persistent file system</li>
-      </ul>
-      <p>In the event of a personal data breach that is likely to result in risk to your rights and freedoms, we will notify the Data Protection Commission within 72 hours and affected users without undue delay, as required by GDPR Article 33.</p>
-    </section>
+  <section>
+    <h2>10. Cookies &amp; Local Storage</h2>
+    <p>ROS Radar is a native mobile application and does not use browser cookies.</p>
+    <p>We use the following local device storage mechanisms:</p>
+    <ul>
+      <li>SharedPreferences — stores your theme preference (light/dark) and tax bracket setting locally on your device. No personal or financial data is stored here.</li>
+      <li>Supabase Auth session tokens — stored securely in the device keychain/keystore to maintain your authenticated session. These are cleared when you sign out.</li>
+    </ul>
+    <p>No third-party analytics SDKs, advertising identifiers, or tracking pixels are embedded in this application.</p>
+  </section>
 
-    <section class="card">
-      <h2><span class="n">08</span> International Data Transfers</h2>
-      <p>Your data is primarily stored and processed within the European Economic Area (EEA) on AWS EU-West-1 infrastructure in Dublin, Ireland.</p>
-      <p>Where transfers outside the EEA occur (e.g. certain Stripe or OpenAI operations), we ensure these are protected by:</p>
-      <ul>
-        <li>EU Standard Contractual Clauses (SCCs) incorporated into our processor agreements</li>
-        <li>The EU–US Data Privacy Framework (where applicable)</li>
-        <li>Adequacy decisions issued by the European Commission</li>
-      </ul>
-      <p>No receipt images or financial records are routinely transferred outside the EEA.</p>
-    </section>
+  <section>
+    <h2>11. Children's Privacy</h2>
+    <p>ROS Radar is intended exclusively for use by adults (18+) in a professional or business capacity. We do not knowingly collect personal data from individuals under the age of 18.</p>
+    <p>If you believe a minor has registered an account, please contact us at privacy@rosradar.ie and we will delete the account promptly.</p>
+  </section>
 
-    <section class="card hl-green">
-      <h2><span class="n">09</span> Your Rights Under GDPR (Articles 15–22)</h2>
-      <h3>Right of Access (Art. 15)</h3>
-      <p>You may request a copy of all personal data we hold about you. We will respond within 30 days.</p>
-      <h3>Right to Rectification (Art. 16)</h3>
-      <p>You may request correction of inaccurate or incomplete data. You can update your name and email directly in Profile &amp; Settings.</p>
-      <h3>Right to Erasure — "Right to be Forgotten" (Art. 17)</h3>
-      <p>You may request deletion of your account and personal data. Note: financial records within the 6-year s.887 TCA 1997 statutory retention period cannot be deleted until that period expires, as deletion would constitute a legal breach. We will delete all data outside this obligation.</p>
-      <h3>Right to Restriction of Processing (Art. 18)</h3>
-      <p>You may request that we restrict processing of your data while a dispute is being resolved.</p>
-      <h3>Right to Data Portability (Art. 20)</h3>
-      <p>You may request an export of your expense records in a structured, machine-readable format (JSON or CSV).</p>
-      <h3>Right to Object (Art. 21)</h3>
-      <p>You may object to processing based on legitimate interests (e.g. marketing). We will cease that processing unless we can demonstrate compelling legitimate grounds.</p>
-      <h3>Right to Withdraw Consent (Art. 7(3))</h3>
-      <p>Where processing is based on your consent, you may withdraw it at any time without affecting the lawfulness of prior processing.</p>
-      <p>To exercise any right, email: <a href="mailto:privacy@rosradar.ie">privacy@rosradar.ie</a><br>We will respond within 30 days. No fee is charged for standard requests.</p>
-    </section>
+  <section>
+    <h2>12. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time to reflect changes in our practices, legal requirements, or service features.</p>
+    <p>Material changes will be notified to you:</p>
+    <ul>
+      <li>Via in-app notification at least 14 days before taking effect</li>
+      <li>By email to your registered address</li>
+    </ul>
+    <p>The "Last updated" date at the top of this policy reflects the most recent revision. Continued use of the app after the effective date of changes constitutes acceptance. The current version is always available in Profile &amp; Settings &gt; Legal &gt; Privacy Policy.</p>
+  </section>
 
-    <section class="card">
-      <h2><span class="n">10</span> Cookies &amp; Local Storage</h2>
-      <p>ROS Radar is a native mobile application and does not use browser cookies.</p>
-      <p>We use the following local device storage mechanisms:</p>
-      <ul>
-        <li>SharedPreferences — stores your theme preference (light/dark) and tax bracket setting locally on your device. No personal or financial data is stored here.</li>
-        <li>Supabase Auth session tokens — stored securely in the device keychain/keystore to maintain your authenticated session. These are cleared when you sign out.</li>
-      </ul>
-      <p>No third-party analytics SDKs, advertising identifiers, or tracking pixels are embedded in this application.</p>
-    </section>
+  <section>
+    <h2>13. How to Complain</h2>
+    <p>If you have a concern about how we handle your personal data, please contact us first at privacy@rosradar.ie so we can attempt to resolve it.</p>
+    <p>If you are not satisfied with our response, you have the right to lodge a complaint with the supervisory authority in your country of residence. For users in the Republic of Ireland:</p>
+    <p>Data Protection Commission (DPC)<br>
+    21 Fitzwilliam Square South<br>
+    Dublin 2, D02 RD28<br>
+    Republic of Ireland<br>
+    www.dataprotection.ie<br>
+    Email: info@dataprotection.ie</p>
+  </section>
 
-    <section class="card">
-      <h2><span class="n">11</span> Children's Privacy</h2>
-      <p>ROS Radar is intended exclusively for use by adults (18+) in a professional or business capacity. We do not knowingly collect personal data from individuals under the age of 18.</p>
-      <p>If you believe a minor has registered an account, please contact us at <a href="mailto:privacy@rosradar.ie">privacy@rosradar.ie</a> and we will delete the account promptly.</p>
-    </section>
-
-    <section class="card">
-      <h2><span class="n">12</span> Changes to This Policy</h2>
-      <p>We may update this Privacy Policy from time to time to reflect changes in our practices, legal requirements, or service features.</p>
-      <p>Material changes will be notified to you:</p>
-      <ul>
-        <li>Via in-app notification at least 14 days before taking effect</li>
-        <li>By email to your registered address</li>
-      </ul>
-      <p>The "Last updated" date at the top of this policy reflects the most recent revision. Continued use of the app after the effective date of changes constitutes acceptance. The current version is always available in Profile &amp; Settings &gt; Legal &gt; Privacy Policy.</p>
-    </section>
-
-    <section class="card">
-      <h2><span class="n">13</span> How to Complain</h2>
-      <p>If you have a concern about how we handle your personal data, please contact us first at <a href="mailto:privacy@rosradar.ie">privacy@rosradar.ie</a> so we can attempt to resolve it.</p>
-      <p>If you are not satisfied with our response, you have the right to lodge a complaint with the supervisory authority in your country of residence. For users in the Republic of Ireland:</p>
-      <address class="addr">
-        Data Protection Commission (DPC)<br>
-        21 Fitzwilliam Square South<br>
-        Dublin 2, D02 RD28<br>
-        Republic of Ireland<br>
-        <a href="https://www.dataprotection.ie" target="_blank" rel="noopener noreferrer">www.dataprotection.ie</a><br>
-        Email: <a href="mailto:info@dataprotection.ie">info@dataprotection.ie</a>
-      </address>
-    </section>
-
-  </div>
-</main>
-
-<footer class="footer">
-  <div class="wrap">
-    <div class="links">
-      <a href="index.html">Home</a>
-      <a href="terms.html">Terms &amp; Conditions</a>
-      <a href="mailto:privacy@rosradar.ie">privacy@rosradar.ie</a>
-    </div>
-    <p>© 2026 ROS Radar. All rights reserved. Republic of Ireland · GDPR Compliant</p>
-  </div>
-</footer>
-
-<script>
-const nav=document.getElementById('nav');
-const progress=document.getElementById('progress');
-const onScroll=()=>{
-  nav.classList.toggle('scrolled',window.scrollY>10);
-  const h=document.documentElement;
-  progress.style.transform='scaleX('+(h.scrollTop/(h.scrollHeight-h.clientHeight||1))+')';
-};
-onScroll();window.addEventListener('scroll',onScroll,{passive:true});
-const toggle=document.getElementById('navToggle');
-const links=document.getElementById('navLinks');
-toggle.addEventListener('click',()=>{
-  const open=links.classList.toggle('open');
-  toggle.classList.toggle('open',open);toggle.setAttribute('aria-expanded',open);
-});
-</script>
+  <p class="footer">© 2026 ROS Radar. All rights reserved.<br>Republic of Ireland · GDPR Compliant</p>
+</div>
 </body>
 </html>

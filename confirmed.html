@@ -1,114 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex, nofollow" />
-  <title>Email confirmed — ROS Radar</title>
-  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <style>
-    /* ROS Radar warm dark tokens (ui design/rosradar-colors.css) */
-    :root {
-      --accent: #F4600F;
-      --accent-hover: #C2410C;
-      --link: #FB9A57;
-      --danger: #F586A0;
-      --bg: #151011;
-      --card: #201819;
-      --text: #F5EEE9;
-      --sub: #A08F88;
-      --field: #322627;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      padding: 24px;
-    }
-    .card {
-      width: 100%;
-      max-width: 380px;
-      background: var(--card);
-      border-radius: 18px;
-      padding: 32px 26px;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-    }
-    .logo {
-      display: block;
-      width: 76px; height: 76px;
-      margin: 0 auto 18px;
-    }
-    h1 { font-size: 20px; text-align: center; margin: 0 0 6px; }
-    p.sub { color: var(--sub); font-size: 14px; text-align: center; margin: 0 0 22px; }
-    .msg { font-size: 13px; margin-top: 14px; text-align: center; min-height: 18px; }
-    .msg.error { color: var(--danger); }
-    .msg.ok { color: var(--link); }
-    .hidden { display: none; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Email confirmed — ROS Radar</title>
+<meta name="description" content="Confirm your email to activate your ROS Radar account." />
+<meta name="theme-color" content="#151011" />
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link href="fonts/fonts.css" rel="stylesheet">
+<style>
+:root{
+  --bg:#151011;--bg-deep:#100C0D;--surface:#221A1B;--surface-2:#281E1F;
+  --border:rgba(255,255,255,0.08);--border-strong:rgba(255,255,255,0.14);
+  --brand:#F4600F;--brand-bright:#FB9A57;--brand-dim:rgba(244,96,15,0.12);
+  --amber:#F59E0B;--red:#EF4444;--indigo:#E83D5F;
+  --text:#FFFFFF;--text-soft:#D6CCC6;--text-muted:#A08F88;--faint:#8A7A72;
+  --display:"Bricolage Grotesque",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --font:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
+  --radius:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--font);background-color:var(--bg);
+  background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
+  background-size:56px 56px;background-attachment:fixed;
+  color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+a{color:var(--brand-bright);text-decoration:none;word-break:break-word}
+a:hover{text-decoration:underline}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;width:100%}
+::selection{background:rgba(244,96,15,.3);color:#fff}
+:focus-visible{outline:2px solid var(--brand-bright);outline-offset:2px;border-radius:4px}
+
+/* nav (shared) */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(24,18,19,.72);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+.nav.scrolled{border-bottom-color:var(--border);background:rgba(19,14,15,.85)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px;max-width:1180px;margin:0 auto;padding:0 24px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:1.12rem;letter-spacing:-.01em;color:#fff}
+.brand:hover{text-decoration:none}
+.brand .logo{width:34px;height:34px;display:grid;place-items:center}
+.brand .logo img{width:34px;height:34px;display:block}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-links a{font-size:.92rem;color:var(--text-soft);padding:9px 14px;border-radius:9px;transition:color .2s,background .2s;font-weight:500}
+.nav-links a:hover{color:#fff;background:var(--surface-2);text-decoration:none}
+.nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:8px}
+.nav-toggle span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:.25s;margin:5px 0}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* centered stage */
+main{flex:1;display:grid;place-items:center;padding:112px 24px 56px;position:relative;overflow:hidden}
+main::before{content:"";position:absolute;inset:0;background:radial-gradient(560px 320px at 50% 8%,rgba(244,96,15,.10),transparent 70%);pointer-events:none}
+
+/* card (radar corners, shared with legal pages) */
+.card{position:relative;width:100%;max-width:440px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:38px 34px 34px;animation:enter .5s cubic-bezier(.22,1,.36,1) both}
+.card::before{content:"";position:absolute;inset:10px;pointer-events:none;z-index:1;
+  --c:rgba(244,96,15,.34);--s:12px;--t:1.5px;
+  background:
+    linear-gradient(var(--c),var(--c)) 0 0/var(--s) var(--t) no-repeat,
+    linear-gradient(var(--c),var(--c)) 0 0/var(--t) var(--s) no-repeat,
+    linear-gradient(var(--c),var(--c)) 100% 0/var(--s) var(--t) no-repeat,
+    linear-gradient(var(--c),var(--c)) 100% 0/var(--t) var(--s) no-repeat,
+    linear-gradient(var(--c),var(--c)) 0 100%/var(--s) var(--t) no-repeat,
+    linear-gradient(var(--c),var(--c)) 0 100%/var(--t) var(--s) no-repeat,
+    linear-gradient(var(--c),var(--c)) 100% 100%/var(--s) var(--t) no-repeat,
+    linear-gradient(var(--c),var(--c)) 100% 100%/var(--t) var(--s) no-repeat}
+@keyframes enter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.mark{width:56px;height:56px;margin:0 auto 20px;display:grid;place-items:center}
+.mark img{width:56px;height:56px;display:block}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--brand-bright);display:flex;align-items:center;justify-content:center;gap:8px}
+.eyebrow::before,.eyebrow::after{content:"";width:18px;height:1px;background:var(--brand);opacity:.7}
+.card h1{font-family:var(--display);font-size:clamp(1.45rem,4.6vw,1.75rem);font-weight:700;letter-spacing:-.02em;text-align:center;margin:10px 0 6px;text-shadow:0 0 18px rgba(244,96,15,.25);animation:hpulse 6s ease-in-out infinite}
+@keyframes hpulse{0%,100%{text-shadow:0 0 12px rgba(244,96,15,.16)}50%{text-shadow:0 0 24px rgba(244,96,15,.42)}}
+.sub{color:var(--text-soft);font-size:.95rem;text-align:center;margin:0 0 8px;line-height:1.6}
+
+/* status treatments */
+.spinner{width:26px;height:26px;margin:14px auto 6px;border-radius:50%;border:2.5px solid var(--brand-dim);border-top-color:var(--brand);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.badge{width:52px;height:52px;margin:14px auto 6px;border-radius:50%;display:none;place-items:center;border:1.5px solid rgba(244,96,15,.4);background:var(--brand-dim)}
+.badge svg{width:26px;height:26px;stroke:var(--brand-bright);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.badge.error{border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.10)}
+.badge.error svg{stroke:var(--red)}
+.msg{font-size:.88rem;margin-top:14px;text-align:center;min-height:20px;line-height:1.55;color:var(--text-muted)}
+.msg.ok{color:var(--brand-bright)}
+.msg.error{color:var(--red)}
+.hidden{display:none}
+
+/* footer */
+.footer{border-top:1px solid var(--border);padding:32px 0;background:var(--bg-deep);text-align:center}
+.footer p{color:var(--faint);font-size:.86rem;margin:6px 0}
+.footer .links{margin-bottom:12px}
+.footer .links a{margin:0 10px;color:var(--text-muted);font-size:.9rem}
+
+@media(max-width:760px){
+  .nav-links{position:fixed;top:72px;left:0;right:0;flex-direction:column;align-items:stretch;gap:4px;background:rgba(16,12,13,.97);backdrop-filter:blur(14px);padding:16px 20px 24px;border-bottom:1px solid var(--border);transform:translateY(-130%);transition:transform .3s}
+  .nav-links.open{transform:translateY(0)}
+  .nav-links a{padding:13px 14px}
+  .nav-toggle{display:block}
+  main{padding:100px 18px 44px}
+  .card{padding:30px 22px 28px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
 </head>
 <body>
-  <div class="card">
-    <img class="logo" src="/logo-mark.png" alt="" />
-    <h1>Confirming your email…</h1>
-    <p class="sub" id="subtitle">Hang tight while we verify your link.</p>
 
-    <div class="msg" id="msg"></div>
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <span class="logo"><img src="/logo-mark.png" alt="" /></span>
+      ROS&nbsp;Radar
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="index.html#features">Features</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms &amp; Conditions</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
+</nav>
 
-  <script type="module">
-    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+<main>
+  <div class="card">
+    <div class="mark" aria-hidden="true">
+      <img src="/logo-mark.png" alt="" style="width:56px;height:56px;display:block" />
+    </div>
+    <span class="eyebrow">Account setup</span>
+    <h1 id="title">Confirming your email…</h1>
+    <p class="sub" id="subtitle">One moment while we activate your ROS Radar account.</p>
 
-    // Public project values — safe to ship client-side (anon key is RLS-gated).
-    const SUPABASE_URL = "https://sytdxjtqvlnmxugvtmxq.supabase.co";
-    const SUPABASE_ANON_KEY =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN5dGR4anRxdmxubXh1Z3Z0bXhxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyMDM2OTYsImV4cCI6MjA5NDc3OTY5Nn0.33LvEX4ZqHWAsD515bKdtOX83VqCNJNo0WbgvMeNw8w";
+    <div class="spinner" id="spinner" aria-hidden="true"></div>
+    <div class="badge" id="okBadge" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="badge error" id="errBadge" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </div>
 
-    // This page redeems the token_hash explicitly on load — no URL session
-    // detection needed, so detectSessionInUrl is disabled.
-    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-      auth: { detectSessionInUrl: false },
-    });
+    <div class="msg" id="msg" role="status" aria-live="polite"></div>
+  </div>
+</main>
 
-    const subtitle = document.getElementById("subtitle");
-    const msg = document.getElementById("msg");
+<footer class="footer">
+  <div class="wrap">
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms &amp; Conditions</a>
+    </div>
+    <p>© 2026 ROS Radar. All rights reserved. Republic of Ireland · GDPR Compliant</p>
+  </div>
+</footer>
 
-    function show(text, kind) {
-      msg.textContent = text;
-      msg.className = "msg" + (kind ? " " + kind : "");
-    }
+<script>
+const nav=document.getElementById('nav');
+const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>10);
+onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+const toggle=document.getElementById('navToggle');
+const links=document.getElementById('navLinks');
+toggle.addEventListener('click',()=>{
+  const open=links.classList.toggle('open');
+  toggle.classList.toggle('open',open);toggle.setAttribute('aria-expanded',open);
+});
+</script>
 
-    const params = new URLSearchParams(location.search);
-    const tokenHash = params.get("token_hash");
-    const type = params.get("type") || "email";
+<script type="module">
+  import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-    if (!tokenHash) {
-      subtitle.textContent = "This link is invalid.";
-      show(
-        "This link is invalid. Open the ROS Radar app and sign in — if you can sign in, your account is already confirmed.",
-        "error"
+  // Public project values — safe to ship client-side (anon key is RLS-gated).
+  const SUPABASE_URL = "https://sytdxjtqvlnmxugvtmxq.supabase.co";
+  const SUPABASE_ANON_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN5dGR4anRxdmxubXh1Z3Z0bXhxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyMDM2OTYsImV4cCI6MjA5NDc3OTY5Nn0.33LvEX4ZqHWAsD515bKdtOX83VqCNJNo0WbgvMeNw8w";
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    auth: { detectSessionInUrl: false, flowType: "pkce" },
+  });
+
+  const title = document.getElementById("title");
+  const subtitle = document.getElementById("subtitle");
+  const spinner = document.getElementById("spinner");
+  const okBadge = document.getElementById("okBadge");
+  const errBadge = document.getElementById("errBadge");
+  const msg = document.getElementById("msg");
+
+  function state(kind, heading, sub, note) {
+    spinner.style.display = "none";
+    okBadge.style.display = kind === "ok" ? "grid" : "none";
+    errBadge.style.display = kind === "error" ? "grid" : "none";
+    title.textContent = heading;
+    subtitle.textContent = sub;
+    msg.textContent = note || "";
+    msg.className = "msg" + (kind ? " " + kind : "");
+  }
+
+  // The confirmation email links here with ?token_hash={{ .TokenHash }}&type=email,
+  // which verifyOtp() can redeem from any browser (no PKCE code verifier needed).
+  // Mail scanners fetch the page but don't execute JS, so the token survives
+  // prefetching; if one ever does consume it, the "already used" copy below
+  // still guides the user correctly (a consumed signup token means the
+  // account IS confirmed).
+  const params = new URLSearchParams(location.search);
+  const tokenHash = params.get("token_hash");
+  const type = params.get("type") || "email";
+
+  if (!tokenHash) {
+    state(
+      "error",
+      "Invalid link",
+      "This page needs to be opened from the confirmation email.",
+      "If you can sign in to the ROS Radar app, your account is already confirmed."
+    );
+  } else {
+    const { error } = await supabase.auth.verifyOtp({ type, token_hash: tokenHash });
+    if (error) {
+      state(
+        "error",
+        "Link expired or already used",
+        "If you can sign in to the ROS Radar app, your account is already confirmed — this link has simply been used.",
+        "Otherwise, sign up in the app again to receive a fresh confirmation email."
       );
     } else {
-      show("Confirming your email…");
-      const { error } = await supabase.auth.verifyOtp({ type, token_hash: tokenHash });
-      if (error) {
-        subtitle.textContent = "Link expired or already used.";
-        show(
-          "This link has expired or was already used. If you can sign in to the app, you're already confirmed — otherwise request a new confirmation email by signing up again.",
-          "error"
-        );
-      } else {
-        subtitle.textContent = "Email confirmed.";
-        show("✓ Your email is confirmed. Open the ROS Radar app and sign in.", "ok");
-      }
+      state(
+        "ok",
+        "Email confirmed",
+        "Your ROS Radar account is ready.",
+        "✓ Open the ROS Radar app on your phone and sign in."
+      );
     }
-  </script>
+  }
+</script>
 </body>
 </html>

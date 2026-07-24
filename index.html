@@ -270,11 +270,11 @@ h1,h2,h3{font-family:var(--display);line-height:1.06;letter-spacing:-.02em;font-
 .chip.no{border-color:rgba(239,68,68,.4);color:#fca5a5;background:rgba(239,68,68,.08)}
 
 /* ---------- Screenshot showcase ---------- */
-.shots{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;align-items:start}
+.shots{display:grid;grid-template-columns:repeat(2,1fr);gap:56px 44px;align-items:start;max-width:900px;margin:0 auto}
 .shot{text-align:center}
 .shot-frame{
   position:relative;border-radius:34px;background:linear-gradient(180deg,#241C1D,#1A1415);
-  border:1px solid var(--border-strong);padding:9px;margin:0 auto 16px;max-width:230px;
+  border:1px solid var(--border-strong);padding:9px;margin:0 auto 18px;max-width:400px;
   box-shadow:0 30px 60px -26px rgba(0,0,0,.7);transition:transform .3s ease,box-shadow .3s ease;
 }
 .shot:hover .shot-frame{transform:translateY(-6px);box-shadow:0 40px 70px -26px rgba(244,96,15,.28)}
@@ -284,10 +284,9 @@ h1,h2,h3{font-family:var(--display);line-height:1.06;letter-spacing:-.02em;font-
 .shot-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--faint);padding:20px;text-align:center}
 .shot-ph svg{width:30px;height:30px;stroke:var(--brand);opacity:.6}
 .shot-ph span{font-size:.74rem;font-family:var(--mono)}
-.shot h3{font-size:1.02rem;margin-bottom:5px}
-.shot p{color:var(--text-muted);font-size:.85rem;max-width:230px;margin:0 auto}
-@media(max-width:960px){.shots{grid-template-columns:repeat(2,1fr);gap:30px 22px}}
-@media(max-width:520px){.shots{grid-template-columns:1fr;gap:40px}}
+.shot h3{font-size:1.18rem;margin-bottom:6px}
+.shot p{color:var(--text-muted);font-size:.92rem;max-width:340px;margin:0 auto}
+@media(max-width:840px){.shots{grid-template-columns:1fr;gap:48px;max-width:420px}}
 
 /* ---------- How it works ---------- */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
@@ -799,11 +798,11 @@ h2:hover{animation:sheen 7s linear infinite,glitch .42s steps(2,end) 2}
       </div>
       <div class="shot reveal">
         <div class="shot-frame"><div class="shot-screen">
-          <img src="images/tax-preferences.png" alt="ROS Radar tax preferences and bracket settings" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="shot-ph" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>tax-preferences.png</span></div>
+          <img src="images/tax-summary.png" alt="ROS Radar Form 11 tax summary with category breakdown" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="shot-ph" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg><span>tax-summary.png</span></div>
         </div></div>
-        <h3>Tax Preferences</h3>
-        <p>Set your bracket so estimates stay accurate.</p>
+        <h3>Form 11 Summary</h3>
+        <p>Every category totalled and export-ready for Revenue.</p>
       </div>
     </div>
   </div>
